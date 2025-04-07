@@ -21,29 +21,32 @@ import { useCookies } from "react-cookie";
 import { useStore } from "zustand";
 import MenuIcon from "@mui/icons-material/Menu";
 import {
-  Restaurant,
-  MenuBook,
-  VideoLibrary,
-  Translate,
-  Dashboard,
+  Public,
+  Groups,
+  Elderly,
+  HealthAndSafety,
   Login as LoginIcon,
   HelpOutline,
   Assignment,
+  People,
+  Campaign,
+  MedicalServices,
 } from "@mui/icons-material";
 import useAuthStore from "@/state/use-auth-store";
 import { useState } from "react";
 import { useAuth } from "@/providers/auth-providers";
 
-// Microsoft-inspired color scheme
+// AgentVerse-inspired color scheme
 const theme = {
   colors: {
-    primary: "#107C10", // Microsoft green
-    secondary: "#0078D4", // Microsoft blue
-    accent: "#50E6FF", // Azure blue
-    text: "#323130",
-    lightText: "#605E5C",
-    white: "#FFFFFF",
-    background: "#f5f5f5",
+    primary: "#3D8BD3",     // Main blue color
+    secondary: "#6E44FF",   // Secondary purple
+    accent: "#00CCFF",      // Bright cyan accent
+    dark: "#1A1F36",        // Dark background
+    light: "#F7F9FC",       // Light background
+    text: "#333333",        // Main text
+    lightText: "#6B7280",   // Secondary text
+    white: "#FFFFFF",       // White
   },
 };
 
@@ -96,7 +99,7 @@ export const Header: React.FC = () => {
       onKeyDown={toggleDrawer(false)}
     >
       <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
-        <MenuBook sx={{ color: theme.colors.primary, fontSize: 32, mr: 1 }} />
+        <Public sx={{ color: theme.colors.primary, fontSize: 32, mr: 1 }} />
         <Typography
           variant="h6"
           sx={{
@@ -106,7 +109,7 @@ export const Header: React.FC = () => {
             WebkitTextFillColor: "transparent",
           }}
         >
-          CommuniCare
+          Communicare.world
         </Typography>
       </Box>
 
@@ -115,7 +118,7 @@ export const Header: React.FC = () => {
       <Link href="/" style={{ textDecoration: "none" }}>
         <Button
           fullWidth
-          startIcon={<Dashboard />}
+          startIcon={<Campaign />}
           sx={{
             color: theme.colors.text,
             justifyContent: "flex-start",
@@ -132,7 +135,7 @@ export const Header: React.FC = () => {
 
       <Button
         fullWidth
-        startIcon={<Restaurant />}
+        startIcon={<Groups />}
         sx={{
           color: theme.colors.text,
           justifyContent: "flex-start",
@@ -143,13 +146,13 @@ export const Header: React.FC = () => {
           },
         }}
       >
-        Solutions
+        Community Tools
       </Button>
 
       <Link href="#features" style={{ textDecoration: "none" }}>
         <Button
           fullWidth
-          startIcon={<VideoLibrary />}
+          startIcon={<People />}
           sx={{
             color: theme.colors.text,
             justifyContent: "flex-start",
@@ -161,14 +164,14 @@ export const Header: React.FC = () => {
             },
           }}
         >
-          Multimedia Menus
+          Community Coordination
         </Button>
       </Link>
 
       <Link href="#service" style={{ textDecoration: "none" }}>
         <Button
           fullWidth
-          startIcon={<Translate />}
+          startIcon={<HealthAndSafety />}
           sx={{
             color: theme.colors.text,
             justifyContent: "flex-start",
@@ -180,7 +183,7 @@ export const Header: React.FC = () => {
             },
           }}
         >
-          AI Translation
+          Health Services
         </Button>
       </Link>
 
@@ -235,7 +238,7 @@ export const Header: React.FC = () => {
               borderRadius: 2,
               mb: 1,
               "&:hover": {
-                backgroundColor: "#0b5e0b",
+                backgroundColor: "#2e6eb0",
               },
             }}
           >
@@ -264,7 +267,7 @@ export const Header: React.FC = () => {
               onClick={handleClose}
             >
               <Link
-                href="/register/restaurant"
+                href="/register/community"
                 sx={{
                   color: theme.colors.primary,
                   textDecoration: "none",
@@ -277,8 +280,8 @@ export const Header: React.FC = () => {
                   },
                 }}
               >
-                <Restaurant sx={{ mr: 1.5 }} />
-                Register as Restaurant
+                <Public sx={{ mr: 1.5 }} />
+                Register a Community
               </Link>
             </MenuItem>
             <MenuItem
@@ -296,7 +299,7 @@ export const Header: React.FC = () => {
               onClick={handleClose}
             >
               <Link
-                href="/register/diner"
+                href="/register/member"
                 sx={{
                   color: theme.colors.secondary,
                   textDecoration: "none",
@@ -309,8 +312,8 @@ export const Header: React.FC = () => {
                   },
                 }}
               >
-                <MenuBook sx={{ mr: 1.5 }} />
-                Register as Diner
+                <People sx={{ mr: 1.5 }} />
+                Join a Community
               </Link>
             </MenuItem>
           </Menu>
@@ -346,11 +349,11 @@ export const Header: React.FC = () => {
               py: 1.5,
               borderRadius: 2,
               "&:hover": {
-                backgroundColor: "#00619a",
+                backgroundColor: "#5a35d9",
               },
             }}
           >
-            My Dashboard
+            My Community
           </Button>
         </Link>
       )}
@@ -385,7 +388,7 @@ export const Header: React.FC = () => {
                 alignItems: "center",
               }}
             >
-              <MenuBook
+              <Public
                 sx={{
                   color: theme.colors.primary,
                   fontSize: { xs: 34, md: 38 },
@@ -402,7 +405,7 @@ export const Header: React.FC = () => {
                   WebkitTextFillColor: "transparent",
                 }}
               >
-                CommuniCare
+                Communicare.world
               </Typography>
             </Link>
           </Box>
@@ -440,7 +443,7 @@ export const Header: React.FC = () => {
               onClick={handleSolutionsClick}
               endIcon={<Box sx={{ fontSize: 10 }}>▼</Box>}
             >
-              Solutions
+              Community Tools
             </Button>
 
             <Menu
@@ -463,16 +466,16 @@ export const Header: React.FC = () => {
                     width: "100%",
                   }}
                 >
-                  <VideoLibrary sx={{ mr: 1.5, color: theme.colors.primary }} />
+                  <People sx={{ mr: 1.5, color: theme.colors.primary }} />
                   <Box>
                     <Typography variant="body2" sx={{ fontWeight: 500 }}>
-                      Multimedia Menus
+                      Community Coordination
                     </Typography>
                     <Typography
                       variant="caption"
                       sx={{ color: theme.colors.lightText }}
                     >
-                      Rich content for menu items
+                      Events, announcements, meetings
                     </Typography>
                   </Box>
                 </Link>
@@ -489,16 +492,16 @@ export const Header: React.FC = () => {
                     width: "100%",
                   }}
                 >
-                  <Translate sx={{ mr: 1.5, color: theme.colors.secondary }} />
+                  <MedicalServices sx={{ mr: 1.5, color: theme.colors.secondary }} />
                   <Box>
                     <Typography variant="body2" sx={{ fontWeight: 500 }}>
-                      AI Translation
+                      Health Services
                     </Typography>
                     <Typography
                       variant="caption"
                       sx={{ color: theme.colors.lightText }}
                     >
-                      Multilingual menu support
+                      Monitoring, assistance, resources
                     </Typography>
                   </Box>
                 </Link>
@@ -515,35 +518,21 @@ export const Header: React.FC = () => {
                     width: "100%",
                   }}
                 >
-                  <Dashboard sx={{ mr: 1.5, color: theme.colors.accent }} />
+                  <Elderly sx={{ mr: 1.5, color: theme.colors.accent }} />
                   <Box>
                     <Typography variant="body2" sx={{ fontWeight: 500 }}>
-                      Customer Insights
+                      Elder Support
                     </Typography>
                     <Typography
                       variant="caption"
                       sx={{ color: theme.colors.lightText }}
                     >
-                      Analytics and feedback
+                      Care coordination and resources
                     </Typography>
                   </Box>
                 </Link>
               </MenuItem>
             </Menu>
-
-            <Link href="/pricing" style={{ textDecoration: "none" }}>
-              <Button
-                sx={{
-                  color: theme.colors.text,
-                  px: { md: 1, lg: 2 },
-                  "&:hover": {
-                    backgroundColor: "rgba(0, 0, 0, 0.04)",
-                  },
-                }}
-              >
-                Pricing
-              </Button>
-            </Link>
 
             <Link href="/help" style={{ textDecoration: "none" }}>
               <Button
@@ -570,7 +559,7 @@ export const Header: React.FC = () => {
                     color: theme.colors.white,
                     px: { md: 2, lg: 3 },
                     "&:hover": {
-                      backgroundColor: "#0b5e0b",
+                      backgroundColor: "#2e6eb0",
                     },
                   }}
                 >
@@ -586,7 +575,7 @@ export const Header: React.FC = () => {
                 >
                   <MenuItem onClick={handleClose}>
                     <Link
-                      href="/register/restaurant"
+                      href="/register/community"
                       style={{
                         textDecoration: "none",
                         color: theme.colors.text,
@@ -595,15 +584,15 @@ export const Header: React.FC = () => {
                         width: "100%",
                       }}
                     >
-                      <Restaurant
+                      <Public
                         sx={{ mr: 1.5, color: theme.colors.primary }}
                       />
-                      Register as Restaurant
+                      Register a Community
                     </Link>
                   </MenuItem>
                   <MenuItem onClick={handleClose}>
                     <Link
-                      href="/register/diner"
+                      href="/register/member"
                       style={{
                         textDecoration: "none",
                         color: theme.colors.text,
@@ -612,10 +601,10 @@ export const Header: React.FC = () => {
                         width: "100%",
                       }}
                     >
-                      <MenuBook
+                      <People
                         sx={{ mr: 1.5, color: theme.colors.secondary }}
                       />
-                      Register as Diner
+                      Join a Community
                     </Link>
                   </MenuItem>
                 </Menu>
@@ -671,7 +660,7 @@ export const Header: React.FC = () => {
                         width: "100%",
                       }}
                     >
-                      Dashboard
+                      My Community
                     </Link>
                   </MenuItem>
                   <MenuItem onClick={handleClose}>

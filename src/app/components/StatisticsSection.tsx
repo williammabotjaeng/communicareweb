@@ -2,19 +2,19 @@
 
 import React from "react";
 import { Box, Container, Typography, Paper } from "@mui/material";
-import { BarChart, Restaurant, Translate } from "@mui/icons-material";
+import { BarChart, Groups, HealthAndSafety, Public } from "@mui/icons-material";
 
-// Microsoft-inspired color scheme
+// AgentVerse-inspired color scheme
 const theme = {
   colors: {
-    primary: "#107C10", // Microsoft green
-    secondary: "#0078D4", // Microsoft blue
-    accent: "#50E6FF", // Azure blue
-    lightGreen: "#84c680",
-    background: "#f5f5f5",
-    text: "#323130",
-    lightText: "#605E5C",
-    white: "#FFFFFF",
+    primary: "#3D8BD3",     // Main blue color
+    secondary: "#6E44FF",   // Secondary purple
+    accent: "#00CCFF",      // Bright cyan accent
+    dark: "#1A1F36",        // Dark background
+    light: "#F7F9FC",       // Light background
+    text: "#333333",        // Main text
+    lightText: "#6B7280",   // Secondary text
+    white: "#FFFFFF",       // White
   },
 };
 
@@ -61,7 +61,7 @@ const StatisticsSection: React.FC<{ statistics: StatisticProps[] }> = ({
               fontSize: { xs: "2rem", md: "2.75rem" },
             }}
           >
-            CommuniCare by the Numbers
+            Communicare.world by the Numbers
           </Typography>
 
           <Typography
@@ -73,9 +73,8 @@ const StatisticsSection: React.FC<{ statistics: StatisticProps[] }> = ({
               mx: "auto",
             }}
           >
-            Our digital menu platform is helping restaurants all over the world
-            create extraordinary dining experiences. Here's how we're{" "}
-            <strong>TIP</strong>ping the scales in their favor.
+            Our community platform is helping neighborhoods and towns around the world 
+            create stronger connections and improve quality of life for all residents.
           </Typography>
         </Box>
 
@@ -189,10 +188,10 @@ const StatisticsSection: React.FC<{ statistics: StatisticProps[] }> = ({
                   mb: 1,
                 }}
               >
-                27% Increase
+                40% Increase
               </Typography>
               <Typography variant="body1" sx={{ opacity: 0.9 }}>
-                in average order value
+                in community participation
               </Typography>
             </Box>
           </Box>
@@ -215,7 +214,7 @@ const StatisticsSection: React.FC<{ statistics: StatisticProps[] }> = ({
                 justifyContent: "center",
               }}
             >
-              <Restaurant sx={{ fontSize: 40 }} />
+              <HealthAndSafety sx={{ fontSize: 40 }} />
             </Box>
             <Box>
               <Typography
@@ -226,10 +225,10 @@ const StatisticsSection: React.FC<{ statistics: StatisticProps[] }> = ({
                   mb: 1,
                 }}
               >
-                42% of Diners
+                35% Improvement
               </Typography>
               <Typography variant="body1" sx={{ opacity: 0.9 }}>
-                try new menu items
+                in community health outcomes
               </Typography>
             </Box>
           </Box>
@@ -252,7 +251,7 @@ const StatisticsSection: React.FC<{ statistics: StatisticProps[] }> = ({
                 justifyContent: "center",
               }}
             >
-              <Translate sx={{ fontSize: 40 }} />
+              <Public sx={{ fontSize: 40 }} />
             </Box>
             <Box>
               <Typography
@@ -263,10 +262,10 @@ const StatisticsSection: React.FC<{ statistics: StatisticProps[] }> = ({
                   mb: 1,
                 }}
               >
-                15+ Languages
+                30+ AI Agents
               </Typography>
               <Typography variant="body1" sx={{ opacity: 0.9 }}>
-                with automatic translation
+                working together seamlessly
               </Typography>
             </Box>
           </Box>

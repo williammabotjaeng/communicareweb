@@ -2,20 +2,20 @@
 
 import React from "react";
 import { Box, Typography, Button, Container, Paper } from "@mui/material";
-import { Restaurant, MenuBook } from "@mui/icons-material";
+import { Public, People } from "@mui/icons-material";
 import Link from "next/link";
 
-// Microsoft-inspired color scheme
+// AgentVerse-inspired color scheme
 const theme = {
   colors: {
-    primary: "#107C10", // Microsoft green
-    secondary: "#0078D4", // Microsoft blue
-    accent: "#50E6FF", // Azure blue
-    lightGreen: "#84c680",
-    background: "#f5f5f5",
-    text: "#323130",
-    lightText: "#605E5C",
-    white: "#FFFFFF",
+    primary: "#3D8BD3",     // Main blue color
+    secondary: "#6E44FF",   // Secondary purple
+    accent: "#00CCFF",      // Bright cyan accent
+    dark: "#1A1F36",        // Dark background
+    light: "#F7F9FC",       // Light background
+    text: "#333333",        // Main text
+    lightText: "#6B7280",   // Secondary text
+    white: "#FFFFFF",       // White
   },
 };
 
@@ -84,8 +84,8 @@ const CTASection: React.FC = () => {
               }}
             >
               Ready to{" "}
-              <span style={{ color: theme.colors.primary }}>PROMPT</span> your
-              menu into the digital age?
+              <span style={{ color: theme.colors.primary }}>connect</span> your
+              community with AI?
             </Typography>
 
             <Typography
@@ -96,20 +96,20 @@ const CTASection: React.FC = () => {
                 maxWidth: 600,
               }}
             >
-              Join the hundreds of restaurants that are using CommuniCare to
-              create extraordinary dining experiences. It's time to{" "}
-              <strong>TIP</strong> the scales in your favor.
+              Join the growing network of communities that are using Communicare.world 
+              to create stronger connections, improve health outcomes, and enhance 
+              quality of life for all residents.
             </Typography>
 
             <Box sx={{ display: "flex", flexWrap: "wrap", gap: 2 }}>
               <Link
-                href="/register/restaurant"
+                href="/register/community"
                 style={{ textDecoration: "none" }}
               >
                 <Button
                   variant="contained"
                   size="large"
-                  startIcon={<Restaurant />}
+                  startIcon={<Public />}
                   sx={{
                     backgroundColor: theme.colors.primary,
                     color: theme.colors.white,
@@ -117,19 +117,19 @@ const CTASection: React.FC = () => {
                     px: 3,
                     borderRadius: 2,
                     "&:hover": {
-                      backgroundColor: theme.colors.lightGreen,
+                      backgroundColor: "#2e6eb0",
                     },
                   }}
                 >
-                  Register as Restaurant
+                  Register a Community
                 </Button>
               </Link>
 
-              <Link href="/register/diner" style={{ textDecoration: "none" }}>
+              <Link href="/register/member" style={{ textDecoration: "none" }}>
                 <Button
                   variant="outlined"
                   size="large"
-                  startIcon={<MenuBook />}
+                  startIcon={<People />}
                   sx={{
                     borderColor: theme.colors.secondary,
                     color: theme.colors.secondary,
@@ -142,7 +142,7 @@ const CTASection: React.FC = () => {
                     },
                   }}
                 >
-                  Register as Diner
+                  Join a Community
                 </Button>
               </Link>
             </Box>
@@ -171,10 +171,10 @@ const CTASection: React.FC = () => {
                   variant="h5"
                   sx={{ fontWeight: 600, color: theme.colors.text, mb: 1 }}
                 >
-                  Why Restaurants Love CommuniCare
+                  Why Communities Love Communicare.world
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                  Our digital menu solution delivers real results
+                  Our AI-powered platform delivers real results
                 </Typography>
               </Box>
 
@@ -201,7 +201,7 @@ const CTASection: React.FC = () => {
                   >
                     ✓
                   </Box>
-                  <strong>27% increase</strong> in average order value
+                  <strong>40% increase</strong> in community participation
                 </Typography>
 
                 <Typography
@@ -226,7 +226,7 @@ const CTASection: React.FC = () => {
                   >
                     ✓
                   </Box>
-                  <strong>42% of diners</strong> try new menu items
+                  <strong>35% improvement</strong> in health outcomes
                 </Typography>
 
                 <Typography
@@ -251,7 +251,7 @@ const CTASection: React.FC = () => {
                   >
                     ✓
                   </Box>
-                  <strong>18% reduction</strong> in menu printing costs
+                  <strong>50% reduction</strong> in communication gaps
                 </Typography>
 
                 <Typography
@@ -276,12 +276,12 @@ const CTASection: React.FC = () => {
                   >
                     ✓
                   </Box>
-                  <strong>4.8/5 average</strong> customer satisfaction
+                  <strong>4.8/5 average</strong> resident satisfaction
                 </Typography>
               </Box>
 
               <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
-                <Link href="/pricing" style={{ textDecoration: "none" }}>
+                <Link href="/features" style={{ textDecoration: "none" }}>
                   <Button
                     variant="text"
                     sx={{
@@ -292,7 +292,7 @@ const CTASection: React.FC = () => {
                       },
                     }}
                   >
-                    View pricing plans →
+                    View all features →
                   </Button>
                 </Link>
               </Box>

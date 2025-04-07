@@ -4,23 +4,24 @@ import React from "react";
 import { Box, Container, Typography, Button, Paper } from "@mui/material";
 import {
   PlayArrow,
-  Restaurant,
-  Translate,
-  Analytics,
+  HealthAndSafety,
+  Groups,
+  School,
+  People,
 } from "@mui/icons-material";
 import Link from "next/link";
 
-// Microsoft-inspired color scheme
+// AgentVerse-inspired color scheme
 const theme = {
   colors: {
-    primary: "#107C10", // Microsoft green
-    secondary: "#0078D4", // Microsoft blue
-    accent: "#50E6FF", // Azure blue
-    lightGreen: "#84c680",
-    background: "#f5f5f5",
-    text: "#323130",
-    lightText: "#605E5C",
-    white: "#FFFFFF",
+    primary: "#3D8BD3",     // Main blue color
+    secondary: "#6E44FF",   // Secondary purple
+    accent: "#00CCFF",      // Bright cyan accent
+    dark: "#1A1F36",        // Dark background
+    light: "#F7F9FC",       // Light background
+    text: "#333333",        // Main text
+    lightText: "#6B7280",   // Secondary text
+    white: "#FFFFFF",       // White
   },
 };
 
@@ -61,7 +62,7 @@ const FeatureShowcase: React.FC = () => {
               mb: 2,
             }}
           >
-            TRANSFORM YOUR DINING EXPERIENCE
+            TRANSFORM YOUR COMMUNITY EXPERIENCE
           </Typography>
 
           <Typography
@@ -77,7 +78,7 @@ const FeatureShowcase: React.FC = () => {
               fontSize: { xs: "2rem", md: "3rem" },
             }}
           >
-            Bring Your Menu to Life with CommuniCare
+            Bring Your Community Together with Communicare
           </Typography>
 
           <Typography
@@ -91,10 +92,9 @@ const FeatureShowcase: React.FC = () => {
               mb: 5,
             }}
           >
-            Our platform helps restaurants create interactive, multimedia-rich
-            digital menus that delight customers and provide the{" "}
-            <strong>PROMPT</strong> information they need to make confident
-            choices.
+            Our platform helps communities create interactive, AI-powered spaces that
+            connect residents and provide the tools they need to build stronger, healthier
+            neighborhoods.
           </Typography>
         </Box>
 
@@ -123,8 +123,8 @@ const FeatureShowcase: React.FC = () => {
           >
             <Box
               component="img"
-              src="https://images.unsplash.com/photo-1552566626-52f8b828add9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
-              alt="Chef preparing food with menu video"
+              src="https://images.unsplash.com/photo-1530099486328-e021101a494a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+              alt="Community members collaborating"
               sx={{
                 width: "100%",
                 height: "100%",
@@ -177,9 +177,8 @@ const FeatureShowcase: React.FC = () => {
                 fontSize: { xs: "1.75rem", md: "2.25rem" },
               }}
             >
-              Videos That{" "}
-              <span style={{ color: theme.colors.primary }}>TIP</span> the
-              Scales in Your Favor
+              AI Agents That Connect Your 
+              <span style={{ color: theme.colors.primary }}> Community</span>
             </Typography>
 
             <Typography
@@ -191,11 +190,10 @@ const FeatureShowcase: React.FC = () => {
                 lineHeight: 1.6,
               }}
             >
-              Show your customers exactly what they're ordering with embedded
-              videos of dish preparation, ingredient highlights, and chef
-              introductions. Our research shows that menus with multimedia
-              elements increase order values by up to 27% and encourage diners
-              to try new dishes.
+              Our platform employs over 30 specialized AI agents working together to create seamless 
+              community experiences. From health monitoring to education support, from event coordination
+              to emergency services - our research shows that communities using Communicare see a 40% 
+              increase in resident engagement and participation.
             </Typography>
 
             <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
@@ -212,21 +210,20 @@ const FeatureShowcase: React.FC = () => {
                     mt: 0.5,
                   }}
                 >
-                  <Restaurant />
+                  <People />
                 </Box>
                 <Box>
                   <Typography
                     variant="h6"
                     sx={{ fontWeight: 600, color: theme.colors.text, mb: 0.5 }}
                   >
-                    Visually Appetizing
+                    Community Coordination
                   </Typography>
                   <Typography
                     variant="body2"
                     sx={{ color: theme.colors.lightText }}
                   >
-                    Showcase your dishes in their best light with high-quality
-                    videos and images
+                    Organize events, meetings, and announcements with AI-powered scheduling
                   </Typography>
                 </Box>
               </Box>
@@ -244,21 +241,20 @@ const FeatureShowcase: React.FC = () => {
                     mt: 0.5,
                   }}
                 >
-                  <Translate />
+                  <HealthAndSafety />
                 </Box>
                 <Box>
                   <Typography
                     variant="h6"
                     sx={{ fontWeight: 600, color: theme.colors.text, mb: 0.5 }}
                   >
-                    Multilingual Support
+                    Health & Wellness
                   </Typography>
                   <Typography
                     variant="body2"
                     sx={{ color: theme.colors.lightText }}
                   >
-                    Azure AI automatically translates your menu into 15+
-                    languages
+                    Monitor health metrics and connect with community health resources
                   </Typography>
                 </Box>
               </Box>
@@ -276,20 +272,20 @@ const FeatureShowcase: React.FC = () => {
                     mt: 0.5,
                   }}
                 >
-                  <Analytics />
+                  <School />
                 </Box>
                 <Box>
                   <Typography
                     variant="h6"
                     sx={{ fontWeight: 600, color: theme.colors.text, mb: 0.5 }}
                   >
-                    Performance Insights
+                    Educational Support
                   </Typography>
                   <Typography
                     variant="body2"
                     sx={{ color: theme.colors.lightText }}
                   >
-                    Track which menu items get the most views and engagement
+                    Access tutoring, skill exchanges, and lifelong learning resources
                   </Typography>
                 </Box>
               </Box>

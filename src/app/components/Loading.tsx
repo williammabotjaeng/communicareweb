@@ -1,7 +1,20 @@
 import { Box, Typography, keyframes } from '@mui/material';
 import React, { useEffect, useState } from 'react';
-import { ClipLoader } from 'react-spinners';
-import { Restaurant, MenuBook, Fastfood, EmojiFoodBeverage } from '@mui/icons-material';
+import { Public, Groups, HealthAndSafety, Campaign, School, People } from '@mui/icons-material';
+
+// AgentVerse-inspired color scheme
+const theme = {
+  colors: {
+    primary: "#3D8BD3",     // Main blue color
+    secondary: "#6E44FF",   // Secondary purple
+    accent: "#00CCFF",      // Bright cyan accent
+    dark: "#1A1F36",        // Dark background
+    light: "#F7F9FC",       // Light background
+    text: "#333333",        // Main text
+    lightText: "#6B7280",   // Secondary text
+    white: "#FFFFFF",       // White
+  },
+};
 
 const fadeIn = keyframes`
   from { opacity: 0; }
@@ -24,18 +37,18 @@ const rotate = keyframes`
   100% { transform: rotate(360deg); }
 `;
 
-const Loading = () => {
+const LoadingScreen = () => {
   const [dots, setDots] = useState('.');
-  const [loadingMessage, setLoadingMessage] = useState('Preparing your digital menu');
+  const [loadingMessage, setLoadingMessage] = useState('Connecting your community');
   
-  // Food-related loading messages
+  // Community-related loading messages
   const loadingMessages = [
-    'Preparing your digital menu',
-    'Setting the digital table',
-    'Gathering the ingredients',
-    'Seasoning your experience',
-    'Cooking up something special',
-    'Plating your perfect menu'
+    'Connecting your community',
+    'Activating AI agents',
+    'Building digital bridges',
+    'Creating shared spaces',
+    'Enhancing community health',
+    'Setting up engagement tools'
   ];
   
   useEffect(() => {
@@ -64,25 +77,25 @@ const Loading = () => {
       <Box sx={styles.contentWrapper}>
         {/* Logo */}
         <Box sx={styles.logoContainer}>
-          <MenuBook sx={styles.logoIcon} />
+          <Public sx={styles.logoIcon} />
           <Typography 
             variant="h3" 
             sx={styles.logoText}
           >
-            <span style={{ color: '#107C10' }}>Prompt</span>
-            <span style={{ color: '#0078D4' }}>Menu</span>
+            <span style={{ color: theme.colors.primary }}>Communi</span>
+            <span style={{ color: theme.colors.secondary }}>care</span>
           </Typography>
         </Box>
         
-        {/* Plate with food icons */}
-        <Box sx={styles.plateContainer}>
-          <Box sx={styles.plate}>
-            <Box sx={styles.plateInner}>
-              {/* Rotating food icons */}
-              <Box sx={styles.foodIconsContainer}>
-                <Fastfood sx={{ ...styles.foodIcon, animationDelay: '0s' }} />
-                <EmojiFoodBeverage sx={{ ...styles.foodIcon, animationDelay: '0.5s' }} />
-                <Restaurant sx={{ ...styles.foodIcon, animationDelay: '1s' }} />
+        {/* Community Globe with AI agent icons */}
+        <Box sx={styles.globeContainer}>
+          <Box sx={styles.globe}>
+            <Box sx={styles.globeInner}>
+              {/* Rotating community icons */}
+              <Box sx={styles.agentIconsContainer}>
+                <Groups sx={{ ...styles.agentIcon, animationDelay: '0s' }} />
+                <HealthAndSafety sx={{ ...styles.agentIcon, animationDelay: '0.5s' }} />
+                <School sx={{ ...styles.agentIcon, animationDelay: '1s' }} />
               </Box>
             </Box>
           </Box>
@@ -97,11 +110,11 @@ const Loading = () => {
         </Box>
         
         <Typography variant="body2" sx={styles.subText}>
-          Your digital menu experience powered by Azure AI
+          Your community platform powered by Fetch.ai AgentVerse
         </Typography>
       </Box>
       
-      {/* Decorative elements representing food and plates */}
+      {/* Decorative elements representing community nodes and connections */}
       <Box sx={styles.decorativeCircle1}></Box>
       <Box sx={styles.decorativeCircle2}></Box>
       <Box sx={{
@@ -114,16 +127,16 @@ const Loading = () => {
           width: '60%',
           height: '60%',
           borderRadius: '50%',
-          backgroundColor: 'rgba(16, 124, 16, 0.1)',
+          backgroundColor: `rgba(61, 139, 211, 0.1)`,
           transform: 'translate(-50%, -50%)'
         }
       }}></Box>
       
-      {/* Steam effect */}
-      <Box sx={styles.steamContainer}>
-        <Box sx={{...styles.steam, animationDelay: '0.2s'}}></Box>
-        <Box sx={{...styles.steam, animationDelay: '0.8s', left: '60%'}}></Box>
-        <Box sx={{...styles.steam, animationDelay: '1.5s', left: '40%'}}></Box>
+      {/* Connection lines effect */}
+      <Box sx={styles.connectionsContainer}>
+        <Box sx={{...styles.connection, animationDelay: '0.2s'}}></Box>
+        <Box sx={{...styles.connection, animationDelay: '0.8s', left: '60%'}}></Box>
+        <Box sx={{...styles.connection, animationDelay: '1.5s', left: '40%'}}></Box>
       </Box>
     </Box>
   );
@@ -137,7 +150,7 @@ const styles = {
     alignItems: 'center',
     height: '100vh',
     width: '100vw',
-    background: 'linear-gradient(135deg, #f5f9f5 0%, #e0f1f9 100%)',
+    background: `linear-gradient(135deg, ${theme.colors.light} 0%, #e0ebf9 100%)`,
     position: 'relative',
     overflow: 'hidden',
     animation: `${fadeIn} 0.5s ease-in-out`,
@@ -163,18 +176,18 @@ const styles = {
   logoIcon: {
     fontSize: 40,
     marginRight: 1,
-    color: '#107C10',
+    color: theme.colors.primary,
   },
   logoText: {
     fontFamily: '"Segoe UI", sans-serif',
     fontWeight: 700,
     letterSpacing: '-0.5px',
   },
-  plateContainer: {
+  globeContainer: {
     position: 'relative',
     marginBottom: '2rem',
   },
-  plate: {
+  globe: {
     width: 120,
     height: 120,
     borderRadius: '50%',
@@ -193,25 +206,25 @@ const styles = {
       border: '2px solid rgba(0, 0, 0, 0.05)',
     },
   },
-  plateInner: {
+  globeInner: {
     width: '80%',
     height: '80%',
     borderRadius: '50%',
-    backgroundColor: 'rgba(240, 240, 240, 0.5)',
+    backgroundColor: `rgba(61, 139, 211, 0.1)`,
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
   },
-  foodIconsContainer: {
+  agentIconsContainer: {
     position: 'relative',
     width: '100%',
     height: '100%',
     animation: `${rotate} 8s infinite linear`,
   },
-  foodIcon: {
+  agentIcon: {
     position: 'absolute',
     fontSize: 28,
-    color: '#0078D4',
+    color: theme.colors.secondary,
     animation: `${float} 2s infinite ease-in-out`,
     '&:nth-of-type(1)': {
       top: '10%',
@@ -228,14 +241,14 @@ const styles = {
     },
   },
   loadingText: {
-    color: '#107C10',
+    color: theme.colors.primary,
     marginBottom: '1.5rem',
     fontFamily: 'Segoe UI, sans-serif',
     fontWeight: 600,
     textAlign: 'center',
   },
   subText: {
-    color: '#0078D4',
+    color: theme.colors.secondary,
     marginTop: '1rem',
     fontFamily: 'Segoe UI, sans-serif',
     opacity: 0.9,
@@ -250,7 +263,7 @@ const styles = {
   progressFill: {
     height: '100%',
     width: '100%',
-    backgroundImage: 'linear-gradient(90deg, transparent, #107C10, #0078D4, #107C10, transparent)',
+    backgroundImage: `linear-gradient(90deg, transparent, ${theme.colors.primary}, ${theme.colors.secondary}, ${theme.colors.primary}, transparent)`,
     backgroundSize: '200% 100%',
     animation: `${shimmer} 2s infinite linear`,
   },
@@ -259,7 +272,7 @@ const styles = {
     width: '300px',
     height: '300px',
     borderRadius: '50%',
-    background: 'radial-gradient(circle, rgba(16, 124, 16, 0.1) 0%, rgba(16, 124, 16, 0) 70%)',
+    background: `radial-gradient(circle, rgba(61, 139, 211, 0.1) 0%, rgba(61, 139, 211, 0) 70%)`,
     top: '-100px',
     left: '-100px',
     zIndex: 1,
@@ -269,7 +282,7 @@ const styles = {
     width: '400px',
     height: '400px',
     borderRadius: '50%',
-    background: 'radial-gradient(circle, rgba(0, 120, 212, 0.08) 0%, rgba(0, 120, 212, 0) 70%)',
+    background: `radial-gradient(circle, rgba(110, 68, 255, 0.08) 0%, rgba(110, 68, 255, 0) 70%)`,
     bottom: '-150px',
     right: '-150px',
     zIndex: 1,
@@ -279,12 +292,12 @@ const styles = {
     width: '200px',
     height: '200px',
     borderRadius: '50%',
-    background: 'radial-gradient(circle, rgba(80, 230, 255, 0.07) 0%, rgba(80, 230, 255, 0) 70%)',
+    background: `radial-gradient(circle, rgba(0, 204, 255, 0.07) 0%, rgba(0, 204, 255, 0) 70%)`,
     bottom: '100px',
     left: '15%',
     zIndex: 1,
   },
-  steamContainer: {
+  connectionsContainer: {
     position: 'absolute',
     top: '40%',
     left: '50%',
@@ -293,11 +306,11 @@ const styles = {
     height: '100px',
     zIndex: 1,
   },
-  steam: {
+  connection: {
     position: 'absolute',
     width: '20px',
     height: '60px',
-    backgroundColor: 'rgba(255, 255, 255, 0.4)',
+    backgroundColor: `rgba(0, 204, 255, 0.3)`,
     borderRadius: '50%',
     left: '50%',
     transform: 'translateX(-50%)',
@@ -307,4 +320,4 @@ const styles = {
   }
 };
 
-export default Loading;
+export default LoadingScreen;

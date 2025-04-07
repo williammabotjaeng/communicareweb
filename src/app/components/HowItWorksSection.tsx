@@ -11,27 +11,27 @@ import {
 } from "@mui/material";
 import {
   CloudUpload,
-  VideoLibrary,
-  Translate,
+  Groups,
+  HealthAndSafety,
   Launch,
   ArrowForward,
-  QrCode,
+  Public,
   Analytics,
-  RestaurantMenu,
+  Campaign,
 } from "@mui/icons-material";
 import Link from "next/link";
 
-// Microsoft-inspired color scheme
+// AgentVerse-inspired color scheme
 const theme = {
   colors: {
-    primary: "#107C10", // Microsoft green
-    secondary: "#0078D4", // Microsoft blue
-    accent: "#50E6FF", // Azure blue
-    lightGreen: "#84c680",
-    background: "#f5f5f5",
-    text: "#323130",
-    lightText: "#605E5C",
-    white: "#FFFFFF",
+    primary: "#3D8BD3",     // Main blue color
+    secondary: "#6E44FF",   // Secondary purple
+    accent: "#00CCFF",      // Bright cyan accent
+    dark: "#1A1F36",        // Dark background
+    light: "#F7F9FC",       // Light background
+    text: "#333333",        // Main text
+    lightText: "#6B7280",   // Secondary text
+    white: "#FFFFFF",       // White
   },
 };
 
@@ -39,30 +39,30 @@ const HowItWorksSection: React.FC = () => {
   // Steps data
   const steps = [
     {
-      title: "Create Your Digital Menu",
+      title: "Create Your Community Space",
       description:
-        "Upload your menu items with descriptions, prices, and photos. Our platform makes it easy to organize categories and highlight special items.",
-      icon: <CloudUpload sx={{ fontSize: 30 }} />,
+        "Register your community and set up your profile with key information. Our platform makes it easy to configure settings and define your community's unique needs.",
+      icon: <Public sx={{ fontSize: 30 }} />,
       color: theme.colors.primary,
     },
     {
-      title: "Add Rich Media Content",
+      title: "Add Community Members",
       description:
-        "Enhance your menu with videos showcasing preparation methods, chef introductions, and ingredient highlights to engage customers.",
-      icon: <VideoLibrary sx={{ fontSize: 30 }} />,
+        "Invite residents to join your community space. They can create profiles, set preferences, and connect with community resources and other members.",
+      icon: <Groups sx={{ fontSize: 30 }} />,
       color: theme.colors.secondary,
     },
     {
-      title: "Enable AI Translation",
+      title: "Activate AI Agents",
       description:
-        "Break language barriers with automatic menu translation powered by Azure AI, making your menu accessible to international guests.",
-      icon: <Translate sx={{ fontSize: 30 }} />,
+        "Select from over 30 specialized AI agents to support your community's needs - from health monitoring to event coordination to educational resources.",
+      icon: <HealthAndSafety sx={{ fontSize: 30 }} />,
       color: theme.colors.accent,
     },
     {
-      title: "Launch Your Digital Menu",
+      title: "Launch Your Community",
       description:
-        "Generate QR codes for your tables and integrate with your website. Customers can access your interactive menu from any device.",
+        "Your community platform is now live! Members can access resources, participate in events, and benefit from AI-powered assistance across all aspects of community life.",
       icon: <Launch sx={{ fontSize: 30 }} />,
       color: theme.colors.primary,
     },
@@ -86,7 +86,7 @@ const HowItWorksSection: React.FC = () => {
           right: 0,
           bottom: 0,
           opacity: 0.05,
-          backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%23107C10' fill-opacity='1'%3E%3Cpath d='M0 38.59l2.83-2.83 1.41 1.41L1.41 40H0v-1.41zM0 20.83l2.83-2.83 1.41 1.41L1.41 22.24H0v-1.41zM0 3.07l2.83-2.83 1.41 1.41L1.41 4.48H0V3.07zm20.76 35.52l2.83-2.83 1.41 1.41L22.17 40h-1.41v-1.41zm0-17.76l2.83-2.83 1.41 1.41-2.83 2.83h-1.41v-1.41zm0-17.76l2.83-2.83 1.41 1.41-2.83 2.83h-1.41V3.07zm-9.49 17.76l2.83-2.83 1.41 1.41-2.83 2.83h-1.41v-1.41zm0-17.76l2.83-2.83 1.41 1.41-2.83 2.83h-1.41V3.07zM20.76 20.83l2.83-2.83 1.41 1.41-2.83 2.83h-1.41v-1.41z'%3E%3C/path%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+          backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%233D8BD3' fill-opacity='1'%3E%3Cpath d='M0 38.59l2.83-2.83 1.41 1.41L1.41 40H0v-1.41zM0 20.83l2.83-2.83 1.41 1.41L1.41 22.24H0v-1.41zM0 3.07l2.83-2.83 1.41 1.41L1.41 4.48H0V3.07zm20.76 35.52l2.83-2.83 1.41 1.41L22.17 40h-1.41v-1.41zm0-17.76l2.83-2.83 1.41 1.41-2.83 2.83h-1.41v-1.41zm0-17.76l2.83-2.83 1.41 1.41-2.83 2.83h-1.41V3.07zm-9.49 17.76l2.83-2.83 1.41 1.41-2.83 2.83h-1.41v-1.41zm0-17.76l2.83-2.83 1.41 1.41-2.83 2.83h-1.41V3.07zM20.76 20.83l2.83-2.83 1.41 1.41-2.83 2.83h-1.41v-1.41z'%3E%3C/path%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
         }}
       />
 
@@ -118,8 +118,8 @@ const HowItWorksSection: React.FC = () => {
             }}
           >
             Four Simple Steps to{" "}
-            <span style={{ color: theme.colors.primary }}>PROMPT</span> Digital
-            Menu Success
+            <span style={{ color: theme.colors.primary }}>Build</span> Your
+            Connected Community
           </Typography>
 
           <Typography
@@ -131,9 +131,9 @@ const HowItWorksSection: React.FC = () => {
               fontSize: "1.1rem",
             }}
           >
-            Get your interactive digital menu up and running in no time with our
-            streamlined process. Our platform is designed to make implementation
-            quick and hassle-free.
+            Get your AI-powered community platform up and running quickly with our
+            streamlined process. Our system is designed to make implementation
+            simple while providing powerful tools for community engagement.
           </Typography>
         </Box>
 
@@ -262,8 +262,8 @@ const HowItWorksSection: React.FC = () => {
           >
             <Box
               component="img"
-              src="https://images.pexels.com/photos/4350110/pexels-photo-4350110.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-              alt="Customer scanning restaurant QR code menu"
+              src="https://images.unsplash.com/photo-1528605105345-5344ea20e269?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+              alt="Community members collaborating on a project"
               sx={{
                 width: "100%",
                 height: "100%",
@@ -283,7 +283,7 @@ const HowItWorksSection: React.FC = () => {
                 fontSize: { xs: "1.75rem", md: "2.25rem" },
               }}
             >
-              The Benefits of Going Digital with CommuniCare
+              The Benefits of Community Connection with Communicare
             </Typography>
 
             <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
@@ -294,20 +294,19 @@ const HowItWorksSection: React.FC = () => {
                     color: theme.colors.primary,
                   }}
                 >
-                  <QrCode />
+                  <Public />
                 </Avatar>
                 <Box>
                   <Typography variant="h6" sx={{ fontWeight: 600, mb: 0.5 }}>
-                    Contactless Ordering
+                    Unified Community Platform
                   </Typography>
                   <Typography
                     variant="body2"
                     sx={{ color: theme.colors.lightText }}
                   >
-                    QR codes make it easy for customers to view your menu on
-                    their devices, reducing the need for physical menus and{" "}
-                    <strong>TIP</strong>ping the scales toward a safer
-                    experience.
+                    A single, integrated platform where all community information, resources,
+                    and services are accessible to every member, creating a stronger sense
+                    of belonging and participation.
                   </Typography>
                 </Box>
               </Box>
@@ -319,19 +318,19 @@ const HowItWorksSection: React.FC = () => {
                     color: theme.colors.secondary,
                   }}
                 >
-                  <RestaurantMenu />
+                  <Campaign />
                 </Avatar>
                 <Box>
                   <Typography variant="h6" sx={{ fontWeight: 600, mb: 0.5 }}>
-                    Instant Menu Updates
+                    Enhanced Communication
                   </Typography>
                   <Typography
                     variant="body2"
                     sx={{ color: theme.colors.lightText }}
                   >
-                    Make changes to your menu in real-time. Add seasonal items,
-                    update prices, or highlight daily specials without printing
-                    new menus.
+                    Streamlined announcements, events, and crisis alerts ensure everyone 
+                    stays informed. Community-wide or targeted messaging reaches the right 
+                    people at the right time.
                   </Typography>
                 </Box>
               </Box>
@@ -347,15 +346,15 @@ const HowItWorksSection: React.FC = () => {
                 </Avatar>
                 <Box>
                   <Typography variant="h6" sx={{ fontWeight: 600, mb: 0.5 }}>
-                    Customer Insights
+                    Community Insights
                   </Typography>
                   <Typography
                     variant="body2"
                     sx={{ color: theme.colors.lightText }}
                   >
-                    Track which menu items get the most views, collect feedback
-                    directly from customers, and use data to optimize your
-                    offerings.
+                    Gather feedback and analyze community data to identify needs and 
+                    opportunities. Make informed decisions about resource allocation 
+                    and program development.
                   </Typography>
                 </Box>
               </Box>
@@ -374,10 +373,10 @@ const HowItWorksSection: React.FC = () => {
               mb: 3,
             }}
           >
-            Ready to transform your restaurant menu?
+            Ready to transform your community connection?
           </Typography>
 
-          <Link href="/register/restaurant" style={{ textDecoration: "none" }}>
+          <Link href="/register/community" style={{ textDecoration: "none" }}>
             <Button
               variant="contained"
               size="large"
@@ -388,7 +387,7 @@ const HowItWorksSection: React.FC = () => {
                 py: 1.5,
                 borderRadius: 2,
                 "&:hover": {
-                  bgcolor: theme.colors.lightGreen,
+                  bgcolor: "#2e6eb0",
                 },
               }}
             >

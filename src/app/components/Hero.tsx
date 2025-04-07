@@ -12,25 +12,26 @@ import {
   useTheme,
 } from "@mui/material";
 import Link from "next/link";
-import { Restaurant, MenuBook, VideoCameraBack } from "@mui/icons-material";
+import { Public, Groups, HealthAndSafety, People, Campaign, School } from "@mui/icons-material";
 
-// Microsoft-inspired color scheme
+// AgentVerse-inspired color scheme
 const theme = {
   colors: {
-    primary: "#107C10", // Microsoft green
-    secondary: "#0078D4", // Microsoft blue
-    accent: "#50E6FF", // Azure blue
-    lightGreen: "#84c680",
-    background: "#f5f5f5",
-    text: "#323130",
-    lightText: "#605E5C",
-    white: "#FFFFFF",
+    primary: "#3D8BD3",     // Main blue color
+    secondary: "#6E44FF",   // Secondary purple
+    accent: "#00CCFF",      // Bright cyan accent
+    dark: "#1A1F36",        // Dark background
+    light: "#F7F9FC",       // Light background
+    text: "#333333",        // Main text
+    lightText: "#6B7280",   // Secondary text
+    white: "#FFFFFF",       // White
+    success: "#34D399",     // Success green
   },
 };
 
-// High-quality restaurant image
+// Community image - showing diverse community members collaborating
 const heroImage =
-  "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2074&q=80";
+  "https://images.unsplash.com/photo-1475483768296-6163e08872a1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80";
 
 const Hero: React.FC = () => {
   const muiTheme = useTheme();
@@ -61,7 +62,7 @@ const Hero: React.FC = () => {
           width: "100%",
           height: "100%",
           background:
-            "linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.85))",
+            "linear-gradient(rgba(26, 31, 54, 0.8), rgba(26, 31, 54, 0.9))",
           zIndex: 1,
         }}
       />
@@ -77,15 +78,15 @@ const Hero: React.FC = () => {
           px: { xs: 2, sm: 3, md: 4 }, // Responsive padding
         }}
       >
-        {/* TIP Chip */}
+        {/* Featured Chip */}
         <Chip
           label={
             isMobile
-              ? "To Insure Promptness"
-              : "To Insure Promptness in your menu experience"
+              ? "AI-Powered Community Platform"
+              : "AI-Powered Community Organization Platform"
           }
           sx={{
-            backgroundColor: "rgba(255, 255, 255, 0.15)",
+            backgroundColor: "rgba(61, 139, 211, 0.15)",
             color: theme.colors.white,
             backdropFilter: "blur(4px)",
             mb: { xs: 3, md: 4 },
@@ -126,7 +127,7 @@ const Hero: React.FC = () => {
             },
           }}
         >
-          Transform Your <span className="highlight">Menu</span> Experience
+          Connect Your <span className="highlight">Community</span> With AI
         </Typography>
 
         {/* Subheadline */}
@@ -143,9 +144,7 @@ const Hero: React.FC = () => {
             px: { xs: 1, md: 0 }, // Add horizontal padding on mobile
           }}
         >
-          Digital menus that <strong>TIP</strong> the scales in your favor —
-          multimedia-rich content that delights customers and{" "}
-          <strong>Prompts</strong> higher engagement.
+          Empower your village, town, or neighborhood with 30+ specialized AI agents that enhance health, safety, education, and community engagement.
         </Typography>
 
         {/* Features */}
@@ -161,7 +160,7 @@ const Hero: React.FC = () => {
         >
           <Box
             sx={{
-              bgcolor: "rgba(255,255,255,0.1)",
+              bgcolor: "rgba(61, 139, 211, 0.15)",
               backdropFilter: "blur(10px)",
               borderRadius: 3,
               px: { xs: 2, md: 3 },
@@ -170,12 +169,12 @@ const Hero: React.FC = () => {
               alignItems: "center",
               justifyContent: "center",
               gap: 1.5,
-              border: "1px solid rgba(255,255,255,0.1)",
+              border: "1px solid rgba(61, 139, 211, 0.2)",
               width: { xs: "100%", sm: "auto" }, // Full width on mobile
               maxWidth: { xs: "100%", sm: "220px" }, // Limit width on tablet
             }}
           >
-            <VideoCameraBack
+            <Groups
               sx={{ color: theme.colors.accent, fontSize: { xs: 20, md: 24 } }}
             />
             <Typography
@@ -183,13 +182,13 @@ const Hero: React.FC = () => {
               fontWeight={500}
               fontSize={{ xs: "0.9rem", md: "1rem" }}
             >
-              Rich Media Integration
+              Community Organization
             </Typography>
           </Box>
 
           <Box
             sx={{
-              bgcolor: "rgba(255,255,255,0.1)",
+              bgcolor: "rgba(110, 68, 255, 0.15)",
               backdropFilter: "blur(10px)",
               borderRadius: 3,
               px: { xs: 2, md: 3 },
@@ -198,12 +197,12 @@ const Hero: React.FC = () => {
               alignItems: "center",
               justifyContent: "center",
               gap: 1.5,
-              border: "1px solid rgba(255,255,255,0.1)",
+              border: "1px solid rgba(110, 68, 255, 0.2)",
               width: { xs: "100%", sm: "auto" }, // Full width on mobile
               maxWidth: { xs: "100%", sm: "220px" }, // Limit width on tablet
             }}
           >
-            <Restaurant
+            <HealthAndSafety
               sx={{ color: theme.colors.primary, fontSize: { xs: 20, md: 24 } }}
             />
             <Typography
@@ -211,13 +210,13 @@ const Hero: React.FC = () => {
               fontWeight={500}
               fontSize={{ xs: "0.9rem", md: "1rem" }}
             >
-              Elevated Dining Experience
+              Health & Wellness
             </Typography>
           </Box>
 
           <Box
             sx={{
-              bgcolor: "rgba(255,255,255,0.1)",
+              bgcolor: "rgba(0, 204, 255, 0.15)",
               backdropFilter: "blur(10px)",
               borderRadius: 3,
               px: { xs: 2, md: 3 },
@@ -226,12 +225,12 @@ const Hero: React.FC = () => {
               alignItems: "center",
               justifyContent: "center",
               gap: 1.5,
-              border: "1px solid rgba(255,255,255,0.1)",
+              border: "1px solid rgba(0, 204, 255, 0.2)",
               width: { xs: "100%", sm: "auto" }, // Full width on mobile
               maxWidth: { xs: "100%", sm: "220px" }, // Limit width on tablet
             }}
           >
-            <MenuBook
+            <School
               sx={{
                 color: theme.colors.secondary,
                 fontSize: { xs: 20, md: 24 },
@@ -242,7 +241,7 @@ const Hero: React.FC = () => {
               fontWeight={500}
               fontSize={{ xs: "0.9rem", md: "1rem" }}
             >
-              Azure AI Translation
+              Education & Support
             </Typography>
           </Box>
         </Stack>
@@ -260,7 +259,7 @@ const Hero: React.FC = () => {
           }}
         >
           <Link
-            href="/register/restaurant"
+            href="/register/community"
             style={{
               textDecoration: "none",
               width: isMobile ? "100%" : "auto",
@@ -268,7 +267,7 @@ const Hero: React.FC = () => {
           >
             <Button
               variant="contained"
-              startIcon={<Restaurant />}
+              startIcon={<Public />}
               size={isMobile ? "medium" : "large"}
               fullWidth={isMobile}
               sx={{
@@ -279,21 +278,21 @@ const Hero: React.FC = () => {
                 fontSize: { xs: "0.9rem", md: "1rem" },
                 fontWeight: 600,
                 width: isMobile ? "100%" : "auto", // Full width on mobile
-                boxShadow: "0 4px 20px rgba(16, 124, 16, 0.25)",
+                boxShadow: "0 4px 20px rgba(61, 139, 211, 0.25)",
                 "&:hover": {
-                  backgroundColor: theme.colors.lightGreen,
+                  backgroundColor: "#2e6eb0",
                   transform: "translateY(-2px)",
-                  boxShadow: "0 8px 25px rgba(16, 124, 16, 0.3)",
+                  boxShadow: "0 8px 25px rgba(61, 139, 211, 0.3)",
                 },
                 transition: "all 0.3s ease",
               }}
             >
-              Register as Restaurant
+              Register a Community
             </Button>
           </Link>
 
           <Link
-            href="/register/diner"
+            href="/register/member"
             style={{
               textDecoration: "none",
               width: isMobile ? "100%" : "auto",
@@ -301,7 +300,7 @@ const Hero: React.FC = () => {
           >
             <Button
               variant="outlined"
-              startIcon={<MenuBook />}
+              startIcon={<People />}
               size={isMobile ? "medium" : "large"}
               fullWidth={isMobile}
               sx={{
@@ -314,18 +313,18 @@ const Hero: React.FC = () => {
                 width: isMobile ? "100%" : "auto", // Full width on mobile
                 "&:hover": {
                   borderColor: theme.colors.accent,
-                  backgroundColor: "rgba(80, 230, 255, 0.1)",
+                  backgroundColor: "rgba(0, 204, 255, 0.1)",
                   transform: "translateY(-2px)",
                 },
                 transition: "all 0.3s ease",
               }}
             >
-              Register as Diner
+              Join a Community
             </Button>
           </Link>
         </Box>
 
-        {/* Prompt Message */}
+        {/* AI Agents Message */}
         <Typography
           variant="body2"
           sx={{
@@ -339,9 +338,7 @@ const Hero: React.FC = () => {
             px: { xs: 1, md: 0 }, // Add padding on mobile
           }}
         >
-          Your menu experience deserves a <strong>PROMPT</strong> upgrade —
-          because first impressions matter. Join CommuniCare today and{" "}
-          <strong>TIP</strong> your restaurant into the digital age.
+          Powered by <strong>30+ specialized AI agents</strong> working together through Fetch.ai's AgentVerse technology to create smarter, more connected communities.
         </Typography>
       </Container>
 

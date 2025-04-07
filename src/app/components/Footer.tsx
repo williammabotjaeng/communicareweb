@@ -26,7 +26,11 @@ import {
   LocationOn,
   Phone,
   Email,
-  MenuBook,
+  Public,
+  HealthAndSafety,
+  School,
+  CampaignOutlined,
+  Groups,
 } from "@mui/icons-material";
 
 // Props types
@@ -53,17 +57,17 @@ interface FooterProps {
   socialLinks: SocialLinkProps[];
 }
 
-// Microsoft-inspired color scheme
+// AgentVerse-inspired color scheme
 const theme = {
   colors: {
-    primary: "#107C10", // Microsoft green
-    secondary: "#0078D4", // Microsoft blue
-    accent: "#50E6FF", // Azure blue
-    background: "#f8f9fa",
-    dark: "#2b2b2b",
-    text: "#323130",
-    lightText: "#605E5C",
-    white: "#FFFFFF",
+    primary: "#3D8BD3",     // Main blue color
+    secondary: "#6E44FF",   // Secondary purple
+    accent: "#00CCFF",      // Bright cyan accent
+    dark: "#1A1F36",        // Dark background
+    light: "#F7F9FC",       // Light background
+    text: "#333333",        // Main text
+    lightText: "#6B7280",   // Secondary text
+    white: "#FFFFFF",       // White
   },
 };
 
@@ -92,7 +96,7 @@ const Footer: React.FC<FooterProps> = ({
       case "email":
         return <Email />;
       default:
-        return <MenuBook />;
+        return <Public />;
     }
   };
 
@@ -114,7 +118,7 @@ const Footer: React.FC<FooterProps> = ({
           {/* Brand and Description */}
           <Box sx={{ flex: "1 1 300px", minWidth: "250px" }}>
             <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
-              <MenuBook
+              <Public
                 sx={{ color: theme.colors.accent, fontSize: 34, mr: 1 }}
               />
               <Typography
@@ -126,7 +130,7 @@ const Footer: React.FC<FooterProps> = ({
                   WebkitTextFillColor: "transparent",
                 }}
               >
-                CommuniCare
+                Communicare.world
               </Typography>
             </Box>
 
@@ -134,8 +138,8 @@ const Footer: React.FC<FooterProps> = ({
               variant="body2"
               sx={{ color: "rgba(255,255,255,0.7)", mb: 3, maxWidth: 300 }}
             >
-              Transforming restaurant menus with interactive, multimedia-rich
-              digital experiences powered by Azure AI technology.
+              Transforming community connections with AI-powered tools that enhance health, 
+              education, safety, and engagement for villages, towns, and neighborhoods.
             </Typography>
 
             <Paper
@@ -194,54 +198,26 @@ const Footer: React.FC<FooterProps> = ({
 
             {/* Social links */}
             <Box sx={{ display: "flex", gap: 1 }}>
-              <IconButton
-                size="small"
-                sx={{
-                  color: theme.colors.white,
-                  bgcolor: "rgba(255,255,255,0.1)",
-                  "&:hover": {
-                    bgcolor: theme.colors.secondary,
-                  },
-                }}
-              >
-                <FacebookOutlined fontSize="small" />
-              </IconButton>
-              <IconButton
-                size="small"
-                sx={{
-                  color: theme.colors.white,
-                  bgcolor: "rgba(255,255,255,0.1)",
-                  "&:hover": {
-                    bgcolor: theme.colors.secondary,
-                  },
-                }}
-              >
-                <Twitter fontSize="small" />
-              </IconButton>
-              <IconButton
-                size="small"
-                sx={{
-                  color: theme.colors.white,
-                  bgcolor: "rgba(255,255,255,0.1)",
-                  "&:hover": {
-                    bgcolor: theme.colors.secondary,
-                  },
-                }}
-              >
-                <Instagram fontSize="small" />
-              </IconButton>
-              <IconButton
-                size="small"
-                sx={{
-                  color: theme.colors.white,
-                  bgcolor: "rgba(255,255,255,0.1)",
-                  "&:hover": {
-                    bgcolor: theme.colors.secondary,
-                  },
-                }}
-              >
-                <LinkedIn fontSize="small" />
-              </IconButton>
+              {socialLinks.map((social, index) => (
+                <IconButton
+                  key={index}
+                  size="small"
+                  component="a"
+                  href={social.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={social.alt}
+                  sx={{
+                    color: theme.colors.white,
+                    bgcolor: "rgba(255,255,255,0.1)",
+                    "&:hover": {
+                      bgcolor: theme.colors.secondary,
+                    },
+                  }}
+                >
+                  {getIconComponent(social.icon)}
+                </IconButton>
+              ))}
             </Box>
           </Box>
 
@@ -289,7 +265,7 @@ const Footer: React.FC<FooterProps> = ({
             <List sx={{ p: 0 }}>
               <ListItem sx={{ px: 0, py: 0.5 }}>
                 <Link
-                  href="/features/menus"
+                  href="/features/community"
                   passHref
                   style={{ textDecoration: "none" }}
                 >
@@ -302,13 +278,13 @@ const Footer: React.FC<FooterProps> = ({
                       },
                     }}
                   >
-                    Digital Menus
+                    Community Coordination
                   </Typography>
                 </Link>
               </ListItem>
               <ListItem sx={{ px: 0, py: 0.5 }}>
                 <Link
-                  href="/features/videos"
+                  href="/features/health"
                   passHref
                   style={{ textDecoration: "none" }}
                 >
@@ -321,13 +297,13 @@ const Footer: React.FC<FooterProps> = ({
                       },
                     }}
                   >
-                    Video Integration
+                    Health & Wellness
                   </Typography>
                 </Link>
               </ListItem>
               <ListItem sx={{ px: 0, py: 0.5 }}>
                 <Link
-                  href="/features/translation"
+                  href="/features/education"
                   passHref
                   style={{ textDecoration: "none" }}
                 >
@@ -340,13 +316,13 @@ const Footer: React.FC<FooterProps> = ({
                       },
                     }}
                   >
-                    AI Translation
+                    Education & Support
                   </Typography>
                 </Link>
               </ListItem>
               <ListItem sx={{ px: 0, py: 0.5 }}>
                 <Link
-                  href="/features/analytics"
+                  href="/features/agents"
                   passHref
                   style={{ textDecoration: "none" }}
                 >
@@ -359,7 +335,7 @@ const Footer: React.FC<FooterProps> = ({
                       },
                     }}
                   >
-                    Customer Insights
+                    AI Agents
                   </Typography>
                 </Link>
               </ListItem>
@@ -408,7 +384,7 @@ const Footer: React.FC<FooterProps> = ({
                   borderRadius: 2,
                   "&:hover": {
                     borderColor: theme.colors.accent,
-                    bgcolor: "rgba(80, 230, 255, 0.1)",
+                    bgcolor: "rgba(0, 204, 255, 0.1)",
                   },
                 }}
               >
@@ -433,7 +409,7 @@ const Footer: React.FC<FooterProps> = ({
             sx={{ display: "flex", alignItems: "center", mb: { xs: 2, sm: 0 } }}
           >
             <Typography variant="body2" sx={{ color: "rgba(255,255,255,0.5)" }}>
-              © {currentYear} CommuniCare. All rights reserved.
+              © {currentYear} Communicare.world. All rights reserved.
             </Typography>
           </Box>
 
@@ -480,7 +456,7 @@ const Footer: React.FC<FooterProps> = ({
           </Box>
         </Box>
 
-        {/* Microsoft Partnership */}
+        {/* Fetch.ai Partnership */}
         <Box
           sx={{
             display: "flex",
@@ -501,22 +477,17 @@ const Footer: React.FC<FooterProps> = ({
               borderRadius: 5,
             }}
           >
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 21 21"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <rect x="1" y="1" width="9" height="9" fill="#f25022" />
-              <rect x="1" y="11" width="9" height="9" fill="#00a4ef" />
-              <rect x="11" y="1" width="9" height="9" fill="#7fba00" />
-              <rect x="11" y="11" width="9" height="9" fill="#ffb900" />
-            </svg>
+            <Box
+              component="img"
+              src="https://img.shields.io/badge/innovationlab-3D8BD3"
+              alt="Innovation Lab"
+              sx={{ height: 20 }}
+            />
             <Typography
               variant="caption"
               sx={{ color: "rgba(255,255,255,0.7)", fontWeight: 500 }}
             >
-              Powered by Azure AI
+              Powered by Fetch.ai AgentVerse
             </Typography>
           </Box>
         </Box>

@@ -3,23 +3,26 @@
 import React from "react";
 import { Box, Container, Typography, Paper, Icon } from "@mui/material";
 import {
-  RestaurantMenu,
-  Videocam,
-  Translate,
+  Groups,
+  HealthAndSafety,
+  Campaign,
   Analytics,
+  CalendarMonth,
+  People,
+  Public
 } from "@mui/icons-material";
 
-// Microsoft-inspired color scheme
+// AgentVerse-inspired color scheme
 const theme = {
   colors: {
-    primary: "#107C10", // Microsoft green
-    secondary: "#0078D4", // Microsoft blue
-    accent: "#50E6FF", // Azure blue
-    lightGreen: "#84c680",
-    background: "#f5f5f5",
-    text: "#323130",
-    lightText: "#605E5C",
-    white: "#FFFFFF",
+    primary: "#3D8BD3",     // Main blue color
+    secondary: "#6E44FF",   // Secondary purple
+    accent: "#00CCFF",      // Bright cyan accent
+    dark: "#1A1F36",        // Dark background
+    light: "#F7F9FC",       // Light background
+    text: "#333333",        // Main text
+    lightText: "#6B7280",   // Secondary text
+    white: "#FFFFFF",       // White
   },
 };
 
@@ -35,16 +38,16 @@ const ServiceSection: React.FC<{ services: ServiceProps[] }> = ({
   // Map string icon names to MUI icon components
   const getIconComponent = (iconName: string) => {
     switch (iconName) {
-      case "menu_book":
-        return <RestaurantMenu fontSize="large" />;
-      case "videocam":
-        return <Videocam fontSize="large" />;
-      case "translate":
-        return <Translate fontSize="large" />;
-      case "analytics":
-        return <Analytics fontSize="large" />;
+      case "public":
+        return <Public fontSize="large" />;
+      case "calendar_month":
+        return <CalendarMonth fontSize="large" />;
+      case "health_and_safety":
+        return <HealthAndSafety fontSize="large" />;
+      case "groups":
+        return <Groups fontSize="large" />;
       default:
-        return <RestaurantMenu fontSize="large" />;
+        return <Public fontSize="large" />;
     }
   };
 
@@ -52,7 +55,7 @@ const ServiceSection: React.FC<{ services: ServiceProps[] }> = ({
     <Box
       sx={{
         py: { xs: 8, md: 12 },
-        bgcolor: theme.colors.background,
+        bgcolor: theme.colors.light,
         position: "relative",
         overflow: "hidden",
       }}
@@ -111,7 +114,7 @@ const ServiceSection: React.FC<{ services: ServiceProps[] }> = ({
               fontSize: { xs: "2rem", md: "3rem" },
             }}
           >
-            Everything You Need for Digital Menu Success
+            Everything Your Community Needs to Thrive
           </Typography>
 
           <Typography
@@ -123,9 +126,8 @@ const ServiceSection: React.FC<{ services: ServiceProps[] }> = ({
               fontSize: "1.1rem",
             }}
           >
-            CommuniCare offers a complete suite of digital menu solutions to
-            help you create engaging experiences that <strong>TIP</strong> the
-            scales in your favor.
+            Communicare.world offers a complete suite of AI-powered solutions to
+            help you build stronger, more connected communities through technology.
           </Typography>
         </Box>
 
@@ -169,13 +171,17 @@ const ServiceSection: React.FC<{ services: ServiceProps[] }> = ({
                   p: 1.5,
                   borderRadius: 2,
                   bgcolor:
-                    index % 2 === 0
+                    index % 3 === 0
                       ? `${theme.colors.primary}15`
-                      : `${theme.colors.secondary}15`,
+                      : index % 3 === 1
+                      ? `${theme.colors.secondary}15`
+                      : `${theme.colors.accent}15`,
                   color:
-                    index % 2 === 0
+                    index % 3 === 0
                       ? theme.colors.primary
-                      : theme.colors.secondary,
+                      : index % 3 === 1
+                      ? theme.colors.secondary
+                      : theme.colors.accent,
                   mb: 3,
                 }}
               >
@@ -208,9 +214,11 @@ const ServiceSection: React.FC<{ services: ServiceProps[] }> = ({
                 variant="body2"
                 sx={{
                   color:
-                    index % 2 === 0
+                    index % 3 === 0
                       ? theme.colors.primary
-                      : theme.colors.secondary,
+                      : index % 3 === 1
+                      ? theme.colors.secondary
+                      : theme.colors.accent,
                   fontWeight: 600,
                   mt: 3,
                   display: "flex",

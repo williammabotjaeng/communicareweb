@@ -15,56 +15,57 @@ import StatisticsSection from "@/components/StatisticsSection";
 import HowItWorksSection from "@/components/HowItWorksSection";
 import CTASection from "@/components/CTASection";
 
-// Microsoft-inspired color scheme
+// AgentVerse-inspired color scheme
 const theme = {
   colors: {
-    primary: "#107C10", // Microsoft green
-    secondary: "#0078D4", // Microsoft blue
-    accent: "#50E6FF", // Azure blue
-    lightGreen: "#84c680",
-    background: "#f5f5f5",
-    text: "#323130",
-    lightText: "#605E5C",
-    white: "#FFFFFF",
+    primary: "#3D8BD3",     // Main blue color
+    secondary: "#6E44FF",   // Secondary purple
+    accent: "#00CCFF",      // Bright cyan accent
+    dark: "#1A1F36",        // Dark background
+    light: "#F7F9FC",       // Light background
+    text: "#333333",        // Main text
+    lightText: "#6B7280",   // Secondary text
+    white: "#FFFFFF",       // White
+    success: "#34D399",     // Success green
   },
 };
 
-// CommuniCare services
+// Communicare.world community services
 const services = [
   {
-    icon: "menu_book",
-    title: "Digital Menu Creation",
+    icon: "public",
+    title: "Community Space Creation",
     description:
-      "Create interactive, multimedia-rich digital menus that showcase your dishes in stunning detail.",
+      "Create interactive, multimedia-rich community spaces that connect neighbors and facilitate local engagement.",
   },
   {
-    icon: "videocam",
-    title: "Video Integration",
+    icon: "calendar_month",
+    title: "Event Coordination",
     description:
-      "Add preparation videos, chef introductions, and ingredient highlights to your menu items.",
+      "Organize community meetings, activities, and events with automated scheduling and reminders.",
   },
   {
-    icon: "translate",
-    title: "AI Translation",
+    icon: "health_and_safety",
+    title: "Health & Wellness Tools",
     description:
-      "Break language barriers with automatic menu translation powered by Azure AI technology.",
+      "Support community well-being with health monitoring, medical resources, and emergency assistance.",
   },
   {
-    icon: "analytics",
-    title: "Customer Insights",
+    icon: "groups",
+    title: "Community Insights",
     description:
-      "Collect and analyze customer feedback to optimize your menu and improve satisfaction.",
+      "Collect and analyze community feedback to optimize services and improve satisfaction.",
   },
 ];
 
-// CommuniCare statistics
+// Communicare.world statistics
 const statistics = [
-  { value: "300+", label: "Restaurant Partners" },
-  { value: "50,000+", label: "Dishes Digitized" },
-  { value: "15+", label: "Languages Supported" },
+  { value: "150+", label: "Community Partners" },
+  { value: "25,000+", label: "Active Members" },
+  { value: "30+", label: "AI Agents Integrated" },
 ];
 
-// CommuniCare quick links
+// Communicare.world quick links
 const quickLinks = [
   { label: "About Us", url: "/about" },
   { label: "Features", url: "/features" },
@@ -72,26 +73,26 @@ const quickLinks = [
   { label: "Help Center", url: "/help" },
 ];
 
-// CommuniCare contact info
+// Communicare.world contact info
 const contactInfo = [
   {
     icon: "location_on",
-    text: "Microsoft Technology Center<br />New York, NY - USA",
+    text: "Global AI Agents League<br />Innovation Hub - South Africa",
     alt: "Location icon",
   },
   {
     icon: "phone",
-    text: "+1 (800) 123-4567",
+    text: "+27 (800) 123-4567",
     alt: "Phone icon",
   },
   {
     icon: "email",
-    text: "support@CommuniCare.com",
+    text: "support@communicare.world",
     alt: "Email icon",
   },
 ];
 
-// CommuniCare social links
+// Communicare.world social links
 const socialLinks = [
   {
     icon: "facebook",
@@ -113,26 +114,26 @@ const socialLinks = [
 // Testimonials data
 const testimonials = [
   {
-    name: "Michael Rodriguez",
-    role: "Executive Chef, Bistro Elegance",
+    name: "Michael Ndlovu",
+    role: "Community Leader, Springville",
     quote:
-      "CommuniCare has transformed our dining experience. Our customers love seeing how dishes are prepared, and the AI translation has been perfect for our international guests.",
+      "Communicare.world has transformed how our community connects. The AI agents help us organize events, manage health initiatives, and keep everyone informed and engaged.",
     image:
       "https://images.unsplash.com/photo-1583394293214-28ded15ee548?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1480&q=80",
   },
   {
     name: "Sarah Chen",
-    role: "Owner, Fusion Kitchen",
+    role: "Healthcare Coordinator, Newtown",
     quote:
-      "Since implementing CommuniCare, we've seen a 30% increase in orders of our specialty dishes. The video previews give diners confidence to try new items.",
+      "Since implementing Communicare.world, our community health programs have seen a 40% increase in participation. The health monitoring tools give residents peace of mind.",
     image:
       "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1558&q=80",
   },
   {
     name: "David Wilson",
-    role: "Marketing Director, Harvest Table",
+    role: "Township Administrator, Oakridge",
     quote:
-      "The insights we get from CommuniCare have been invaluable. We've optimized our menu based on customer feedback and saw our ratings improve within weeks.",
+      "The insights we get from Communicare.world have been invaluable. We've optimized our community services based on real data and feedback, creating stronger connections between residents.",
     image:
       "https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80",
   },
