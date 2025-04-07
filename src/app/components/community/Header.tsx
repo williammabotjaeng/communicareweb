@@ -17,6 +17,8 @@ import {
   Divider,
   Avatar,
   Badge,
+  ListItemIcon,
+  ListItemText,
 } from "@mui/material";
 import { useCookies } from "react-cookie";
 import { useStore } from "zustand";
@@ -24,38 +26,49 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import useAuthStore from "@/state/use-auth-store";
 import {
-  MenuBook,
-  Restaurant,
-  Search,
-  Favorite,
+  Public,
+  Dashboard,
   Settings,
   Logout,
   NotificationsOutlined,
   AccountCircle,
-  Home,
-  History,
-  Star,
   MenuOutlined,
-  LocalOfferOutlined,
+  Groups,
+  InsertChart,
+  SupervisorAccount,
+  AddCircleOutline,
+  SettingsApplications,
+  Campaign,
+  MessageOutlined,
+  Help,
+  HealthAndSafety,
+  School,
+  NewReleases,
+  CalendarMonth,
+  Event,
+  People,
 } from "@mui/icons-material";
 import { useAuth } from "@/providers/auth-providers";
 import LogoutLoading from "../CleanUpLoading";
 
-// Microsoft-inspired color scheme
+// AgentVerse-inspired color scheme
 const theme = {
   colors: {
-    primary: "#107C10", // Microsoft green
-    secondary: "#0078D4", // Microsoft blue
-    accent: "#50E6FF", // Azure blue
-    text: "#323130",
-    lightText: "#605E5C",
-    white: "#FFFFFF",
-    background: "#f5f5f5",
-    error: "#d13438",
+    primary: "#3D8BD3",     // Main blue color
+    secondary: "#6E44FF",   // Secondary purple
+    accent: "#00CCFF",      // Bright cyan accent
+    dark: "#1A1F36",        // Dark background
+    light: "#F7F9FC",       // Light background
+    text: "#333333",        // Main text
+    lightText: "#6B7280",   // Secondary text
+    white: "#FFFFFF",       // White
+    error: "#EF4444",       // Error red
+    warning: "#FBBF24",     // Warning yellow
+    success: "#34D399",     // Success green
   },
 };
 
-export const DinerDashboardHeader: React.FC = () => {
+export const CommunityDashboardHeader: React.FC = () => {
   const [cookies, setCookie, removeCookie] = useCookies([
     "access",
     "refresh",
@@ -63,21 +76,33 @@ export const DinerDashboardHeader: React.FC = () => {
     "user_role",
     "username",
     "displayName",
+    "company_name",
+    "subscription_tier",
   ]);
   const router = useRouter();
   const { clearAuth } = useStore(useAuthStore);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [profileAnchorEl, setProfileAnchorEl] = useState(null);
   const [notificationsAnchorEl, setNotificationsAnchorEl] = useState(null);
+  const [eventsAnchorEl, setEventsAnchorEl] = useState(null);
+  const [servicesAnchorEl, setServicesAnchorEl] = useState(null);
   const [loading, setLoading] = useState(false);
 
   const { logout, logoutIsLoading } = useAuth();
 
-  // Get user display name from cookies
-  const userDisplayName = cookies.displayName || cookies.username || "Diner";
+  const handleLogout = () => {
+    logout();
+  };
+
+  // Get community name from cookies
+  const communityName =
+    cookies.company_name || cookies.displayName || "My Community";
+
+  // Check if subscription tier is present (would be set during login or profile update)
+  const subscriptionTier = cookies.subscription_tier || "basic";
 
   // Example notification count - this would come from your notification system
-  const notificationCount = 2;
+  const notificationCount = 5;
 
   const handleProfileClick = (event) => {
     setProfileAnchorEl(event.currentTarget);
@@ -87,17 +112,68 @@ export const DinerDashboardHeader: React.FC = () => {
     setNotificationsAnchorEl(event.currentTarget);
   };
 
+  const handleEventsClick = (event) => {
+    setEventsAnchorEl(event.currentTarget);
+  };
+
+  const handleServicesClick = (event) => {
+    setServicesAnchorEl(event.currentTarget);
+  };
+
   const handleClose = () => {
     setProfileAnchorEl(null);
     setNotificationsAnchorEl(null);
+    setEventsAnchorEl(null);
+    setServicesAnchorEl(null);
   };
 
   const toggleDrawer = (open: boolean) => () => {
     setDrawerOpen(open);
   };
 
-  const handleLogout = () => {
-    logout();
+  // Render subscription badge based on tier
+  const renderSubscriptionBadge = () => {
+    switch (subscriptionTier) {
+      case "premium":
+        return (
+          <Chip
+            size="small"
+            label="Premium"
+            sx={{
+              bgcolor: theme.colors.primary,
+              color: theme.colors.white,
+              fontWeight: 600,
+              fontSize: "0.7rem",
+            }}
+          />
+        );
+      case "standard":
+        return (
+          <Chip
+            size="small"
+            label="Standard"
+            sx={{
+              bgcolor: theme.colors.secondary,
+              color: theme.colors.white,
+              fontWeight: 600,
+              fontSize: "0.7rem",
+            }}
+          />
+        );
+      default:
+        return (
+          <Chip
+            size="small"
+            label="Basic"
+            sx={{
+              bgcolor: theme.colors.lightText,
+              color: theme.colors.white,
+              fontWeight: 600,
+              fontSize: "0.7rem",
+            }}
+          />
+        );
+    }
   };
 
   // Drawer content for mobile view
@@ -115,7 +191,7 @@ export const DinerDashboardHeader: React.FC = () => {
     >
       {/* Logo and title */}
       <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
-        <MenuBook sx={{ color: theme.colors.primary, fontSize: 32, mr: 1 }} />
+        <Public sx={{ color: theme.colors.primary, fontSize: 32, mr: 1 }} />
         <Typography
           variant="h6"
           sx={{
@@ -125,13 +201,13 @@ export const DinerDashboardHeader: React.FC = () => {
             WebkitTextFillColor: "transparent",
           }}
         >
-          CommuniCare
+          Communicare.world
         </Typography>
       </Box>
 
       <Divider sx={{ mb: 2 }} />
 
-      {/* User profile summary */}
+      {/* Community profile summary */}
       <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
         <Avatar
           sx={{
@@ -142,14 +218,17 @@ export const DinerDashboardHeader: React.FC = () => {
             mr: 2,
           }}
         >
-          {userDisplayName.charAt(0).toUpperCase()}
+          {communityName.charAt(0).toUpperCase()}
         </Avatar>
-        <Box>
-          <Typography variant="body1" sx={{ fontWeight: 600 }}>
-            {userDisplayName}
-          </Typography>
+        <Box sx={{ flex: 1 }}>
+          <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+            <Typography variant="body1" sx={{ fontWeight: 600 }}>
+              {communityName}
+            </Typography>
+            {renderSubscriptionBadge()}
+          </Box>
           <Typography variant="body2" sx={{ color: theme.colors.lightText }}>
-            Diner Account
+            Community Admin
           </Typography>
         </Box>
       </Box>
@@ -157,10 +236,10 @@ export const DinerDashboardHeader: React.FC = () => {
       <Divider sx={{ mb: 2 }} />
 
       {/* Navigation items */}
-      <Link href="/" style={{ textDecoration: "none" }}>
+      <Link href="/dashboard" style={{ textDecoration: "none" }}>
         <Button
           fullWidth
-          startIcon={<Home />}
+          startIcon={<Dashboard />}
           sx={{
             color: theme.colors.text,
             justifyContent: "flex-start",
@@ -171,14 +250,14 @@ export const DinerDashboardHeader: React.FC = () => {
             },
           }}
         >
-          Home
+          Dashboard
         </Button>
       </Link>
 
-      <Link href="/restaurants" style={{ textDecoration: "none" }}>
+      <Link href="/community" style={{ textDecoration: "none" }}>
         <Button
           fullWidth
-          startIcon={<Restaurant />}
+          startIcon={<People />}
           sx={{
             color: theme.colors.text,
             justifyContent: "flex-start",
@@ -189,14 +268,14 @@ export const DinerDashboardHeader: React.FC = () => {
             },
           }}
         >
-          Restaurants
+          Community Members
         </Button>
       </Link>
 
-      <Link href="/search" style={{ textDecoration: "none" }}>
+      <Link href="/events" style={{ textDecoration: "none" }}>
         <Button
           fullWidth
-          startIcon={<Search />}
+          startIcon={<Event />}
           sx={{
             color: theme.colors.text,
             justifyContent: "flex-start",
@@ -207,14 +286,14 @@ export const DinerDashboardHeader: React.FC = () => {
             },
           }}
         >
-          Search Menus
+          Events
         </Button>
       </Link>
 
-      <Link href="/favorites" style={{ textDecoration: "none" }}>
+      <Link href="/announcements" style={{ textDecoration: "none" }}>
         <Button
           fullWidth
-          startIcon={<Favorite />}
+          startIcon={<Campaign />}
           sx={{
             color: theme.colors.text,
             justifyContent: "flex-start",
@@ -225,14 +304,14 @@ export const DinerDashboardHeader: React.FC = () => {
             },
           }}
         >
-          Favorites
+          Announcements
         </Button>
       </Link>
 
-      <Link href="/history" style={{ textDecoration: "none" }}>
+      <Link href="/health" style={{ textDecoration: "none" }}>
         <Button
           fullWidth
-          startIcon={<History />}
+          startIcon={<HealthAndSafety />}
           sx={{
             color: theme.colors.text,
             justifyContent: "flex-start",
@@ -243,14 +322,14 @@ export const DinerDashboardHeader: React.FC = () => {
             },
           }}
         >
-          Recently Viewed
+          Health Services
         </Button>
       </Link>
 
-      <Link href="/reviews" style={{ textDecoration: "none" }}>
+      <Link href="/education" style={{ textDecoration: "none" }}>
         <Button
           fullWidth
-          startIcon={<Star />}
+          startIcon={<School />}
           sx={{
             color: theme.colors.text,
             justifyContent: "flex-start",
@@ -261,9 +340,47 @@ export const DinerDashboardHeader: React.FC = () => {
             },
           }}
         >
-          My Reviews
+          Education
         </Button>
       </Link>
+
+      <Link href="/analytics" style={{ textDecoration: "none" }}>
+        <Button
+          fullWidth
+          startIcon={<InsertChart />}
+          sx={{
+            color: theme.colors.text,
+            justifyContent: "flex-start",
+            py: 1,
+            borderRadius: 2,
+            "&:hover": {
+              backgroundColor: `${theme.colors.primary}10`,
+            },
+          }}
+        >
+          Analytics
+        </Button>
+      </Link>
+
+      {subscriptionTier === "premium" && (
+        <Link href="/ai-agents" style={{ textDecoration: "none" }}>
+          <Button
+            fullWidth
+            startIcon={<SettingsApplications />}
+            sx={{
+              color: theme.colors.text,
+              justifyContent: "flex-start",
+              py: 1,
+              borderRadius: 2,
+              "&:hover": {
+                backgroundColor: `${theme.colors.primary}10`,
+              },
+            }}
+          >
+            AI Agents
+          </Button>
+        </Link>
+      )}
 
       <Divider sx={{ my: 2 }} />
 
@@ -328,14 +445,14 @@ export const DinerDashboardHeader: React.FC = () => {
           {/* Logo and Title Section */}
           <Box sx={{ display: "flex", alignItems: "center" }}>
             <Link
-              href="/"
+              href="/dashboard"
               style={{
                 textDecoration: "none",
                 display: "flex",
                 alignItems: "center",
               }}
             >
-              <MenuBook
+              <Public
                 sx={{
                   color: theme.colors.primary,
                   fontSize: { xs: 30, md: 34 },
@@ -352,9 +469,28 @@ export const DinerDashboardHeader: React.FC = () => {
                   WebkitTextFillColor: "transparent",
                 }}
               >
-                CommuniCare
+                Communicare.world
               </Typography>
             </Link>
+
+            <Divider
+              orientation="vertical"
+              flexItem
+              sx={{ mx: 2, display: { xs: "none", md: "block" } }}
+            />
+
+            <Box
+              sx={{
+                display: { xs: "none", md: "flex" },
+                alignItems: "center",
+                gap: 1,
+              }}
+            >
+              <Typography variant="body2" sx={{ fontWeight: 600 }}>
+                {communityName}
+              </Typography>
+              {renderSubscriptionBadge()}
+            </Box>
           </Box>
 
           {/* Desktop Navigation */}
@@ -362,64 +498,205 @@ export const DinerDashboardHeader: React.FC = () => {
             sx={{
               display: { xs: "none", md: "flex" },
               alignItems: "center",
-              gap: { md: 1, lg: 2 },
+              gap: { md: 0.5, lg: 1 },
             }}
           >
-            <Link href="/" style={{ textDecoration: "none" }}>
+            <Link href="/dashboard" style={{ textDecoration: "none" }}>
               <Button
                 sx={{
                   color: theme.colors.text,
-                  px: { md: 1, lg: 2 },
+                  px: { md: 1, lg: 1.5 },
                   "&:hover": {
                     backgroundColor: "rgba(0, 0, 0, 0.04)",
                   },
                 }}
               >
-                Home
+                Dashboard
               </Button>
             </Link>
 
-            <Link href="/restaurants" style={{ textDecoration: "none" }}>
+            {/* Events Management Dropdown */}
+            <Button
+              onClick={handleEventsClick}
+              sx={{
+                color: theme.colors.text,
+                px: { md: 1, lg: 1.5 },
+                "&:hover": {
+                  backgroundColor: "rgba(0, 0, 0, 0.04)",
+                },
+              }}
+              endIcon={<Box sx={{ fontSize: 10 }}>▼</Box>}
+            >
+              Events
+            </Button>
+
+            <Menu
+              anchorEl={eventsAnchorEl}
+              open={Boolean(eventsAnchorEl)}
+              onClose={handleClose}
+              PaperProps={{
+                sx: { width: 220, mt: 1.5 },
+              }}
+            >
+              <MenuItem onClick={handleClose}>
+                <Link
+                  href="/events"
+                  style={{
+                    textDecoration: "none",
+                    color: "inherit",
+                    display: "flex",
+                    width: "100%",
+                    alignItems: "center",
+                  }}
+                >
+                  <Event sx={{ mr: 1.5, fontSize: 20 }} />
+                  All Events
+                </Link>
+              </MenuItem>
+              <MenuItem onClick={handleClose}>
+                <Link
+                  href="/events/create"
+                  style={{
+                    textDecoration: "none",
+                    color: "inherit",
+                    display: "flex",
+                    width: "100%",
+                    alignItems: "center",
+                  }}
+                >
+                  <AddCircleOutline sx={{ mr: 1.5, fontSize: 20 }} />
+                  Create New Event
+                </Link>
+              </MenuItem>
+              <MenuItem onClick={handleClose}>
+                <Link
+                  href="/events/calendar"
+                  style={{
+                    textDecoration: "none",
+                    color: "inherit",
+                    display: "flex",
+                    width: "100%",
+                    alignItems: "center",
+                  }}
+                >
+                  <CalendarMonth sx={{ mr: 1.5, fontSize: 20 }} />
+                  Community Calendar
+                </Link>
+              </MenuItem>
+            </Menu>
+
+            {/* Services Dropdown */}
+            <Button
+              onClick={handleServicesClick}
+              sx={{
+                color: theme.colors.text,
+                px: { md: 1, lg: 1.5 },
+                "&:hover": {
+                  backgroundColor: "rgba(0, 0, 0, 0.04)",
+                },
+              }}
+              endIcon={<Box sx={{ fontSize: 10 }}>▼</Box>}
+            >
+              Services
+            </Button>
+
+            <Menu
+              anchorEl={servicesAnchorEl}
+              open={Boolean(servicesAnchorEl)}
+              onClose={handleClose}
+              PaperProps={{
+                sx: { width: 220, mt: 1.5 },
+              }}
+            >
+              <MenuItem onClick={handleClose}>
+                <Link
+                  href="/health"
+                  style={{
+                    textDecoration: "none",
+                    color: "inherit",
+                    display: "flex",
+                    width: "100%",
+                    alignItems: "center",
+                  }}
+                >
+                  <HealthAndSafety sx={{ mr: 1.5, fontSize: 20 }} />
+                  Health Services
+                </Link>
+              </MenuItem>
+              <MenuItem onClick={handleClose}>
+                <Link
+                  href="/education"
+                  style={{
+                    textDecoration: "none",
+                    color: "inherit",
+                    display: "flex",
+                    width: "100%",
+                    alignItems: "center",
+                  }}
+                >
+                  <School sx={{ mr: 1.5, fontSize: 20 }} />
+                  Education
+                </Link>
+              </MenuItem>
+              <MenuItem onClick={handleClose}>
+                <Link
+                  href="/community/directory"
+                  style={{
+                    textDecoration: "none",
+                    color: "inherit",
+                    display: "flex",
+                    width: "100%",
+                    alignItems: "center",
+                  }}
+                >
+                  <People sx={{ mr: 1.5, fontSize: 20 }} />
+                  Community Directory
+                </Link>
+              </MenuItem>
+              {subscriptionTier !== "basic" && (
+                <MenuItem onClick={handleClose}>
+                  <Link
+                    href="/ai-agents"
+                    style={{
+                      textDecoration: "none",
+                      color: "inherit",
+                      display: "flex",
+                      width: "100%",
+                      alignItems: "center",
+                    }}
+                  >
+                    <SettingsApplications sx={{ mr: 1.5, fontSize: 20 }} />
+                    AI Agents
+                  </Link>
+                </MenuItem>
+              )}
+            </Menu>
+
+            <Link href="/announcements" style={{ textDecoration: "none" }}>
               <Button
                 sx={{
                   color: theme.colors.text,
-                  px: { md: 1, lg: 2 },
+                  px: { md: 1, lg: 1.5 },
                   "&:hover": {
                     backgroundColor: "rgba(0, 0, 0, 0.04)",
                   },
                 }}
               >
-                Restaurants
+                Announcements
               </Button>
             </Link>
 
-            <Link href="/search" style={{ textDecoration: "none" }}>
+            <Link href="/analytics" style={{ textDecoration: "none" }}>
               <Button
-                startIcon={<Search />}
                 sx={{
                   color: theme.colors.text,
-                  px: { md: 1, lg: 2 },
+                  px: { md: 1, lg: 1.5 },
                   "&:hover": {
                     backgroundColor: "rgba(0, 0, 0, 0.04)",
                   },
                 }}
               >
-                Search
-              </Button>
-            </Link>
-
-            <Link href="/favorites" style={{ textDecoration: "none" }}>
-              <Button
-                startIcon={<Favorite />}
-                sx={{
-                  color: theme.colors.text,
-                  px: { md: 1, lg: 2 },
-                  "&:hover": {
-                    backgroundColor: "rgba(0, 0, 0, 0.04)",
-                  },
-                }}
-              >
-                Favorites
+                Analytics
               </Button>
             </Link>
 
@@ -427,7 +704,7 @@ export const DinerDashboardHeader: React.FC = () => {
             <IconButton
               color="inherit"
               onClick={handleNotificationsClick}
-              sx={{ color: theme.colors.text }}
+              sx={{ color: theme.colors.text, ml: 1 }}
             >
               <Badge badgeContent={notificationCount} color="error">
                 <NotificationsOutlined />
@@ -459,19 +736,19 @@ export const DinerDashboardHeader: React.FC = () => {
               <MenuItem sx={{ py: 1.5 }}>
                 <Box>
                   <Box sx={{ display: "flex", alignItems: "center", mb: 0.5 }}>
-                    <LocalOfferOutlined
+                    <Event
                       fontSize="small"
-                      sx={{ color: theme.colors.primary, mr: 1 }}
+                      sx={{ color: theme.colors.secondary, mr: 1 }}
                     />
                     <Typography variant="body2" fontWeight={500}>
-                      New Promotion Available
+                      New Event
                     </Typography>
                   </Box>
                   <Typography
                     variant="body2"
                     sx={{ color: theme.colors.lightText }}
                   >
-                    Harbor Seafood has a new weekend special.
+                    Community Town Hall meeting scheduled for Saturday.
                   </Typography>
                   <Typography
                     variant="caption"
@@ -481,7 +758,7 @@ export const DinerDashboardHeader: React.FC = () => {
                       display: "block",
                     }}
                   >
-                    2 hours ago
+                    5 minutes ago
                   </Typography>
                 </Box>
               </MenuItem>
@@ -489,19 +766,19 @@ export const DinerDashboardHeader: React.FC = () => {
               <MenuItem sx={{ py: 1.5 }}>
                 <Box>
                   <Box sx={{ display: "flex", alignItems: "center", mb: 0.5 }}>
-                    <Restaurant
+                    <People
                       fontSize="small"
-                      sx={{ color: theme.colors.secondary, mr: 1 }}
+                      sx={{ color: theme.colors.primary, mr: 1 }}
                     />
                     <Typography variant="body2" fontWeight={500}>
-                      Menu Update
+                      New Members
                     </Typography>
                   </Box>
                   <Typography
                     variant="body2"
                     sx={{ color: theme.colors.lightText }}
                   >
-                    Milano Bistro has updated their dinner menu.
+                    5 new members have joined your community.
                   </Typography>
                   <Typography
                     variant="caption"
@@ -512,6 +789,36 @@ export const DinerDashboardHeader: React.FC = () => {
                     }}
                   >
                     Yesterday
+                  </Typography>
+                </Box>
+              </MenuItem>
+
+              <MenuItem sx={{ py: 1.5 }}>
+                <Box>
+                  <Box sx={{ display: "flex", alignItems: "center", mb: 0.5 }}>
+                    <HealthAndSafety
+                      fontSize="small"
+                      sx={{ color: theme.colors.warning, mr: 1 }}
+                    />
+                    <Typography variant="body2" fontWeight={500}>
+                      Health Alert
+                    </Typography>
+                  </Box>
+                  <Typography
+                    variant="body2"
+                    sx={{ color: theme.colors.lightText }}
+                  >
+                    COVID-19 vaccination clinic scheduled for next week.
+                  </Typography>
+                  <Typography
+                    variant="caption"
+                    sx={{
+                      color: theme.colors.lightText,
+                      mt: 0.5,
+                      display: "block",
+                    }}
+                  >
+                    2 days ago
                   </Typography>
                 </Box>
               </MenuItem>
@@ -537,7 +844,7 @@ export const DinerDashboardHeader: React.FC = () => {
                     fontSize: 16,
                   }}
                 >
-                  {userDisplayName.charAt(0).toUpperCase()}
+                  {communityName.charAt(0).toUpperCase()}
                 </Avatar>
               }
               endIcon={<Box sx={{ fontSize: 10 }}>▼</Box>}
@@ -562,13 +869,7 @@ export const DinerDashboardHeader: React.FC = () => {
                   variant="body2"
                   sx={{ fontWeight: 500, lineHeight: 1.2 }}
                 >
-                  {userDisplayName}
-                </Typography>
-                <Typography
-                  variant="caption"
-                  sx={{ color: theme.colors.lightText, lineHeight: 1.2 }}
-                >
-                  Diner Account
+                  Account
                 </Typography>
               </Box>
             </Button>
@@ -584,14 +885,35 @@ export const DinerDashboardHeader: React.FC = () => {
             >
               <Box sx={{ px: 2, py: 1.5 }}>
                 <Typography variant="subtitle2" fontWeight={600}>
-                  {userDisplayName}
+                  {communityName}
                 </Typography>
-                <Typography
-                  variant="body2"
-                  sx={{ color: theme.colors.lightText }}
+                <Box
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 1,
+                    mt: 0.5,
+                  }}
                 >
-                  Diner Account
-                </Typography>
+                  <Typography
+                    variant="body2"
+                    sx={{ color: theme.colors.lightText }}
+                  >
+                    {subscriptionTier.charAt(0).toUpperCase() +
+                      subscriptionTier.slice(1)}{" "}
+                    Plan
+                  </Typography>
+                  {subscriptionTier !== "premium" && (
+                    <Link href="/upgrade" style={{ textDecoration: "none" }}>
+                      <Typography
+                        variant="caption"
+                        sx={{ color: theme.colors.primary, fontWeight: 500 }}
+                      >
+                        Upgrade
+                      </Typography>
+                    </Link>
+                  )}
+                </Box>
               </Box>
               <Divider />
               <MenuItem onClick={handleClose}>
@@ -605,8 +927,8 @@ export const DinerDashboardHeader: React.FC = () => {
                     alignItems: "center",
                   }}
                 >
-                  <AccountCircle sx={{ mr: 1.5, fontSize: 20 }} />
-                  My Profile
+                  <Public sx={{ mr: 1.5, fontSize: 20 }} />
+                  Community Profile
                 </Link>
               </MenuItem>
               <MenuItem onClick={handleClose}>
@@ -622,6 +944,38 @@ export const DinerDashboardHeader: React.FC = () => {
                 >
                   <Settings sx={{ mr: 1.5, fontSize: 20 }} />
                   Settings
+                </Link>
+              </MenuItem>
+              {subscriptionTier !== "basic" && (
+                <MenuItem onClick={handleClose}>
+                  <Link
+                    href="/agents"
+                    style={{
+                      textDecoration: "none",
+                      color: "inherit",
+                      display: "flex",
+                      width: "100%",
+                      alignItems: "center",
+                    }}
+                  >
+                    <SettingsApplications sx={{ mr: 1.5, fontSize: 20 }} />
+                    Manage AI Agents
+                  </Link>
+                </MenuItem>
+              )}
+              <MenuItem onClick={handleClose}>
+                <Link
+                  href="/help"
+                  style={{
+                    textDecoration: "none",
+                    color: "inherit",
+                    display: "flex",
+                    width: "100%",
+                    alignItems: "center",
+                  }}
+                >
+                  <Help sx={{ mr: 1.5, fontSize: 20 }} />
+                  Help & Support
                 </Link>
               </MenuItem>
               <Divider />
@@ -684,4 +1038,4 @@ export const DinerDashboardHeader: React.FC = () => {
   );
 };
 
-export default DinerDashboardHeader;
+export default CommunityDashboardHeader;

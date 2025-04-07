@@ -16,7 +16,7 @@ import {
 } from "@mui/material";
 import Grid from "@mui/material/GridLegacy";
 import { ReceiptLong, ImageSearch, QuestionAnswer } from "@mui/icons-material";
-import RestaurantDashboardHeader from "@/components/restaurant/Header";
+import CommunityDashboardHeader from "@/components/community/Header";
 
 const Dashboard = () => {
   const router = useRouter();
@@ -97,7 +97,7 @@ const Dashboard = () => {
         }}
       />
 
-      <RestaurantDashboardHeader />
+      <CommunityDashboardHeader />
 
       {/* Main Content */}
       <Container

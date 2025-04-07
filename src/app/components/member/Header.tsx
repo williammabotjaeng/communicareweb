@@ -17,8 +17,6 @@ import {
   Divider,
   Avatar,
   Badge,
-  ListItemIcon,
-  ListItemText,
 } from "@mui/material";
 import { useCookies } from "react-cookie";
 import { useStore } from "zustand";
@@ -26,49 +24,44 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import useAuthStore from "@/state/use-auth-store";
 import {
-  Restaurant,
-  MenuBook,
-  Dashboard,
+  Public,
+  Search,
+  Favorite,
   Settings,
   Logout,
   NotificationsOutlined,
   AccountCircle,
+  Home,
+  History,
   MenuOutlined,
-  QrCode2,
-  InsertChart,
-  MonetizationOn,
-  SupervisorAccount,
-  VideoLibrary,
-  AddCircleOutline,
-  SettingsApplications,
-  StarOutline,
-  MessageOutlined,
-  Help,
-  ReceiptLong,
-  TableBar,
-  LocalOfferOutlined,
-  NewReleases,
-  AttachMoney,
+  HealthAndSafety,
+  School,
+  Groups,
+  Event,
+  Campaign,
+  People,
+  CalendarMonth,
+  Forum,
 } from "@mui/icons-material";
 import { useAuth } from "@/providers/auth-providers";
 import LogoutLoading from "../CleanUpLoading";
 
-// Microsoft-inspired color scheme
+// AgentVerse-inspired color scheme
 const theme = {
   colors: {
-    primary: "#107C10", // Microsoft green
-    secondary: "#0078D4", // Microsoft blue
-    accent: "#50E6FF", // Azure blue
-    text: "#323130",
-    lightText: "#605E5C",
-    white: "#FFFFFF",
-    background: "#f5f5f5",
-    error: "#d13438",
-    warning: "#FFB900",
+    primary: "#3D8BD3",     // Main blue color
+    secondary: "#6E44FF",   // Secondary purple
+    accent: "#00CCFF",      // Bright cyan accent
+    dark: "#1A1F36",        // Dark background
+    light: "#F7F9FC",       // Light background
+    text: "#333333",        // Main text
+    lightText: "#6B7280",   // Secondary text
+    white: "#FFFFFF",       // White
+    error: "#EF4444",       // Error red
   },
 };
 
-export const RestaurantDashboardHeader: React.FC = () => {
+export const MemberDashboardHeader: React.FC = () => {
   const [cookies, setCookie, removeCookie] = useCookies([
     "access",
     "refresh",
@@ -76,30 +69,23 @@ export const RestaurantDashboardHeader: React.FC = () => {
     "user_role",
     "username",
     "displayName",
-    "company_name",
-    "subscription_tier",
+    "community_name",
   ]);
   const router = useRouter();
   const { clearAuth } = useStore(useAuthStore);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [profileAnchorEl, setProfileAnchorEl] = useState(null);
   const [notificationsAnchorEl, setNotificationsAnchorEl] = useState(null);
-  const [menuAnchorEl, setMenuAnchorEl] = useState(null);
-  const [analyticsAnchorEl, setAnalyticsAnchorEl] = useState(null);
+  const [servicesAnchorEl, setServicesAnchorEl] = useState(null);
   const [loading, setLoading] = useState(false);
 
   const { logout, logoutIsLoading } = useAuth();
 
-  const handleLogout = () => {
-    logout();
-  };
-
-  // Get restaurant name from cookies
-  const restaurantName =
-    cookies.company_name || cookies.displayName || "My Restaurant";
-
-  // Check if subscription tier is present (would be set during login or profile update)
-  const subscriptionTier = cookies.subscription_tier || "basic";
+  // Get user display name from cookies
+  const userDisplayName = cookies.displayName || cookies.username || "Member";
+  
+  // Get community name from cookies
+  const communityName = cookies.community_name || "My Community";
 
   // Example notification count - this would come from your notification system
   const notificationCount = 3;
@@ -111,69 +97,23 @@ export const RestaurantDashboardHeader: React.FC = () => {
   const handleNotificationsClick = (event) => {
     setNotificationsAnchorEl(event.currentTarget);
   };
-
-  const handleMenuClick = (event) => {
-    setMenuAnchorEl(event.currentTarget);
-  };
-
-  const handleAnalyticsClick = (event) => {
-    setAnalyticsAnchorEl(event.currentTarget);
+  
+  const handleServicesClick = (event) => {
+    setServicesAnchorEl(event.currentTarget);
   };
 
   const handleClose = () => {
     setProfileAnchorEl(null);
     setNotificationsAnchorEl(null);
-    setMenuAnchorEl(null);
-    setAnalyticsAnchorEl(null);
+    setServicesAnchorEl(null);
   };
 
   const toggleDrawer = (open: boolean) => () => {
     setDrawerOpen(open);
   };
 
-  // Render subscription badge based on tier
-  const renderSubscriptionBadge = () => {
-    switch (subscriptionTier) {
-      case "premium":
-        return (
-          <Chip
-            size="small"
-            label="Premium"
-            sx={{
-              bgcolor: theme.colors.primary,
-              color: theme.colors.white,
-              fontWeight: 600,
-              fontSize: "0.7rem",
-            }}
-          />
-        );
-      case "standard":
-        return (
-          <Chip
-            size="small"
-            label="Standard"
-            sx={{
-              bgcolor: theme.colors.secondary,
-              color: theme.colors.white,
-              fontWeight: 600,
-              fontSize: "0.7rem",
-            }}
-          />
-        );
-      default:
-        return (
-          <Chip
-            size="small"
-            label="Basic"
-            sx={{
-              bgcolor: theme.colors.lightText,
-              color: theme.colors.white,
-              fontWeight: 600,
-              fontSize: "0.7rem",
-            }}
-          />
-        );
-    }
+  const handleLogout = () => {
+    logout();
   };
 
   // Drawer content for mobile view
@@ -191,7 +131,7 @@ export const RestaurantDashboardHeader: React.FC = () => {
     >
       {/* Logo and title */}
       <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
-        <Restaurant sx={{ color: theme.colors.primary, fontSize: 32, mr: 1 }} />
+        <Public sx={{ color: theme.colors.primary, fontSize: 32, mr: 1 }} />
         <Typography
           variant="h6"
           sx={{
@@ -201,13 +141,13 @@ export const RestaurantDashboardHeader: React.FC = () => {
             WebkitTextFillColor: "transparent",
           }}
         >
-          CommuniCare
+          Communicare.world
         </Typography>
       </Box>
 
       <Divider sx={{ mb: 2 }} />
 
-      {/* Restaurant profile summary */}
+      {/* User profile summary */}
       <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
         <Avatar
           sx={{
@@ -218,17 +158,14 @@ export const RestaurantDashboardHeader: React.FC = () => {
             mr: 2,
           }}
         >
-          {restaurantName.charAt(0).toUpperCase()}
+          {userDisplayName.charAt(0).toUpperCase()}
         </Avatar>
-        <Box sx={{ flex: 1 }}>
-          <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-            <Typography variant="body1" sx={{ fontWeight: 600 }}>
-              {restaurantName}
-            </Typography>
-            {renderSubscriptionBadge()}
-          </Box>
+        <Box>
+          <Typography variant="body1" sx={{ fontWeight: 600 }}>
+            {userDisplayName}
+          </Typography>
           <Typography variant="body2" sx={{ color: theme.colors.lightText }}>
-            Restaurant Account
+            {communityName}
           </Typography>
         </Box>
       </Box>
@@ -236,10 +173,10 @@ export const RestaurantDashboardHeader: React.FC = () => {
       <Divider sx={{ mb: 2 }} />
 
       {/* Navigation items */}
-      <Link href="/" style={{ textDecoration: "none" }}>
+      <Link href="/dashboard" style={{ textDecoration: "none" }}>
         <Button
           fullWidth
-          startIcon={<Dashboard />}
+          startIcon={<Home />}
           sx={{
             color: theme.colors.text,
             justifyContent: "flex-start",
@@ -254,10 +191,10 @@ export const RestaurantDashboardHeader: React.FC = () => {
         </Button>
       </Link>
 
-      <Link href="/menus" style={{ textDecoration: "none" }}>
+      <Link href="/events" style={{ textDecoration: "none" }}>
         <Button
           fullWidth
-          startIcon={<MenuBook />}
+          startIcon={<Event />}
           sx={{
             color: theme.colors.text,
             justifyContent: "flex-start",
@@ -268,14 +205,14 @@ export const RestaurantDashboardHeader: React.FC = () => {
             },
           }}
         >
-          Menus
+          Events
         </Button>
       </Link>
 
-      <Link href="/media" style={{ textDecoration: "none" }}>
+      <Link href="/announcements" style={{ textDecoration: "none" }}>
         <Button
           fullWidth
-          startIcon={<VideoLibrary />}
+          startIcon={<Campaign />}
           sx={{
             color: theme.colors.text,
             justifyContent: "flex-start",
@@ -286,14 +223,14 @@ export const RestaurantDashboardHeader: React.FC = () => {
             },
           }}
         >
-          Media Library
+          Announcements
         </Button>
       </Link>
 
-      <Link href="/qrcodes" style={{ textDecoration: "none" }}>
+      <Link href="/community" style={{ textDecoration: "none" }}>
         <Button
           fullWidth
-          startIcon={<QrCode2 />}
+          startIcon={<People />}
           sx={{
             color: theme.colors.text,
             justifyContent: "flex-start",
@@ -304,14 +241,14 @@ export const RestaurantDashboardHeader: React.FC = () => {
             },
           }}
         >
-          QR Codes
+          Community
         </Button>
       </Link>
 
-      <Link href="/analytics" style={{ textDecoration: "none" }}>
+      <Link href="/health" style={{ textDecoration: "none" }}>
         <Button
           fullWidth
-          startIcon={<InsertChart />}
+          startIcon={<HealthAndSafety />}
           sx={{
             color: theme.colors.text,
             justifyContent: "flex-start",
@@ -322,14 +259,14 @@ export const RestaurantDashboardHeader: React.FC = () => {
             },
           }}
         >
-          Analytics
+          Health Services
         </Button>
       </Link>
 
-      <Link href="/reviews" style={{ textDecoration: "none" }}>
+      <Link href="/education" style={{ textDecoration: "none" }}>
         <Button
           fullWidth
-          startIcon={<StarOutline />}
+          startIcon={<School />}
           sx={{
             color: theme.colors.text,
             justifyContent: "flex-start",
@@ -340,49 +277,27 @@ export const RestaurantDashboardHeader: React.FC = () => {
             },
           }}
         >
-          Reviews
+          Education
         </Button>
       </Link>
 
-      {subscriptionTier !== "basic" && (
-        <Link href="/orders" style={{ textDecoration: "none" }}>
-          <Button
-            fullWidth
-            startIcon={<ReceiptLong />}
-            sx={{
-              color: theme.colors.text,
-              justifyContent: "flex-start",
-              py: 1,
-              borderRadius: 2,
-              "&:hover": {
-                backgroundColor: `${theme.colors.primary}10`,
-              },
-            }}
-          >
-            Orders
-          </Button>
-        </Link>
-      )}
-
-      {subscriptionTier === "premium" && (
-        <Link href="/reservations" style={{ textDecoration: "none" }}>
-          <Button
-            fullWidth
-            startIcon={<TableBar />}
-            sx={{
-              color: theme.colors.text,
-              justifyContent: "flex-start",
-              py: 1,
-              borderRadius: 2,
-              "&:hover": {
-                backgroundColor: `${theme.colors.primary}10`,
-              },
-            }}
-          >
-            Reservations
-          </Button>
-        </Link>
-      )}
+      <Link href="/history" style={{ textDecoration: "none" }}>
+        <Button
+          fullWidth
+          startIcon={<History />}
+          sx={{
+            color: theme.colors.text,
+            justifyContent: "flex-start",
+            py: 1,
+            borderRadius: 2,
+            "&:hover": {
+              backgroundColor: `${theme.colors.primary}10`,
+            },
+          }}
+        >
+          Recent Activity
+        </Button>
+      </Link>
 
       <Divider sx={{ my: 2 }} />
 
@@ -403,26 +318,6 @@ export const RestaurantDashboardHeader: React.FC = () => {
           Settings
         </Button>
       </Link>
-
-      {subscriptionTier !== "premium" && (
-        <Link href="/upgrade" style={{ textDecoration: "none" }}>
-          <Button
-            fullWidth
-            startIcon={<AttachMoney />}
-            sx={{
-              color: theme.colors.primary,
-              justifyContent: "flex-start",
-              py: 1,
-              borderRadius: 2,
-              "&:hover": {
-                backgroundColor: `${theme.colors.primary}10`,
-              },
-            }}
-          >
-            Upgrade Plan
-          </Button>
-        </Link>
-      )}
 
       <Button
         fullWidth
@@ -467,14 +362,14 @@ export const RestaurantDashboardHeader: React.FC = () => {
           {/* Logo and Title Section */}
           <Box sx={{ display: "flex", alignItems: "center" }}>
             <Link
-              href="/"
+              href="/dashboard"
               style={{
                 textDecoration: "none",
                 display: "flex",
                 alignItems: "center",
               }}
             >
-              <Restaurant
+              <Public
                 sx={{
                   color: theme.colors.primary,
                   fontSize: { xs: 30, md: 34 },
@@ -491,28 +386,21 @@ export const RestaurantDashboardHeader: React.FC = () => {
                   WebkitTextFillColor: "transparent",
                 }}
               >
-                CommuniCare
+                Communicare.world
               </Typography>
             </Link>
-
-            <Divider
-              orientation="vertical"
-              flexItem
-              sx={{ mx: 2, display: { xs: "none", md: "block" } }}
-            />
-
-            <Box
+            
+            <Chip
+              label={communityName}
+              size="small"
               sx={{
-                display: { xs: "none", md: "flex" },
-                alignItems: "center",
-                gap: 1,
+                ml: 2,
+                bgcolor: `${theme.colors.primary}15`,
+                color: theme.colors.primary,
+                fontWeight: 500,
+                display: { xs: "none", sm: "flex" }
               }}
-            >
-              <Typography variant="body2" sx={{ fontWeight: 600 }}>
-                {restaurantName}
-              </Typography>
-              {renderSubscriptionBadge()}
-            </Box>
+            />
           </Box>
 
           {/* Desktop Navigation */}
@@ -520,14 +408,14 @@ export const RestaurantDashboardHeader: React.FC = () => {
             sx={{
               display: { xs: "none", md: "flex" },
               alignItems: "center",
-              gap: { md: 0.5, lg: 1 },
+              gap: { md: 1, lg: 2 },
             }}
           >
-            <Link href="/" style={{ textDecoration: "none" }}>
+            <Link href="/dashboard" style={{ textDecoration: "none" }}>
               <Button
                 sx={{
                   color: theme.colors.text,
-                  px: { md: 1, lg: 1.5 },
+                  px: { md: 1, lg: 2 },
                   "&:hover": {
                     backgroundColor: "rgba(0, 0, 0, 0.04)",
                   },
@@ -537,24 +425,52 @@ export const RestaurantDashboardHeader: React.FC = () => {
               </Button>
             </Link>
 
-            {/* Menu Management Dropdown */}
+            <Link href="/events" style={{ textDecoration: "none" }}>
+              <Button
+                sx={{
+                  color: theme.colors.text,
+                  px: { md: 1, lg: 2 },
+                  "&:hover": {
+                    backgroundColor: "rgba(0, 0, 0, 0.04)",
+                  },
+                }}
+              >
+                Events
+              </Button>
+            </Link>
+
+            <Link href="/announcements" style={{ textDecoration: "none" }}>
+              <Button
+                sx={{
+                  color: theme.colors.text,
+                  px: { md: 1, lg: 2 },
+                  "&:hover": {
+                    backgroundColor: "rgba(0, 0, 0, 0.04)",
+                  },
+                }}
+              >
+                Announcements
+              </Button>
+            </Link>
+
+            {/* Services Dropdown */}
             <Button
-              onClick={handleMenuClick}
+              onClick={handleServicesClick}
               sx={{
                 color: theme.colors.text,
-                px: { md: 1, lg: 1.5 },
+                px: { md: 1, lg: 2 },
                 "&:hover": {
                   backgroundColor: "rgba(0, 0, 0, 0.04)",
                 },
               }}
               endIcon={<Box sx={{ fontSize: 10 }}>▼</Box>}
             >
-              Menus
+              Services
             </Button>
-
+            
             <Menu
-              anchorEl={menuAnchorEl}
-              open={Boolean(menuAnchorEl)}
+              anchorEl={servicesAnchorEl}
+              open={Boolean(servicesAnchorEl)}
               onClose={handleClose}
               PaperProps={{
                 sx: { width: 220, mt: 1.5 },
@@ -562,7 +478,7 @@ export const RestaurantDashboardHeader: React.FC = () => {
             >
               <MenuItem onClick={handleClose}>
                 <Link
-                  href="/menus"
+                  href="/health"
                   style={{
                     textDecoration: "none",
                     color: "inherit",
@@ -571,13 +487,13 @@ export const RestaurantDashboardHeader: React.FC = () => {
                     alignItems: "center",
                   }}
                 >
-                  <MenuBook sx={{ mr: 1.5, fontSize: 20 }} />
-                  All Menus
+                  <HealthAndSafety sx={{ mr: 1.5, fontSize: 20 }} />
+                  Health Services
                 </Link>
               </MenuItem>
               <MenuItem onClick={handleClose}>
                 <Link
-                  href="/menus/create"
+                  href="/education"
                   style={{
                     textDecoration: "none",
                     color: "inherit",
@@ -586,13 +502,13 @@ export const RestaurantDashboardHeader: React.FC = () => {
                     alignItems: "center",
                   }}
                 >
-                  <AddCircleOutline sx={{ mr: 1.5, fontSize: 20 }} />
-                  Create New Menu
+                  <School sx={{ mr: 1.5, fontSize: 20 }} />
+                  Education
                 </Link>
               </MenuItem>
               <MenuItem onClick={handleClose}>
                 <Link
-                  href="/categories"
+                  href="/directory"
                   style={{
                     textDecoration: "none",
                     color: "inherit",
@@ -601,13 +517,13 @@ export const RestaurantDashboardHeader: React.FC = () => {
                     alignItems: "center",
                   }}
                 >
-                  <MenuOutlined sx={{ mr: 1.5, fontSize: 20 }} />
-                  Categories
+                  <People sx={{ mr: 1.5, fontSize: 20 }} />
+                  Community Directory
                 </Link>
               </MenuItem>
               <MenuItem onClick={handleClose}>
                 <Link
-                  href="/media"
+                  href="/forums"
                   style={{
                     textDecoration: "none",
                     color: "inherit",
@@ -616,148 +532,17 @@ export const RestaurantDashboardHeader: React.FC = () => {
                     alignItems: "center",
                   }}
                 >
-                  <VideoLibrary sx={{ mr: 1.5, fontSize: 20 }} />
-                  Media Library
+                  <Forum sx={{ mr: 1.5, fontSize: 20 }} />
+                  Community Forums
                 </Link>
               </MenuItem>
             </Menu>
-
-            {/* Analytics Dropdown */}
-            <Button
-              onClick={handleAnalyticsClick}
-              sx={{
-                color: theme.colors.text,
-                px: { md: 1, lg: 1.5 },
-                "&:hover": {
-                  backgroundColor: "rgba(0, 0, 0, 0.04)",
-                },
-              }}
-              endIcon={<Box sx={{ fontSize: 10 }}>▼</Box>}
-            >
-              Analytics
-            </Button>
-
-            <Menu
-              anchorEl={analyticsAnchorEl}
-              open={Boolean(analyticsAnchorEl)}
-              onClose={handleClose}
-              PaperProps={{
-                sx: { width: 220, mt: 1.5 },
-              }}
-            >
-              <MenuItem onClick={handleClose}>
-                <Link
-                  href="/analytics/overview"
-                  style={{
-                    textDecoration: "none",
-                    color: "inherit",
-                    display: "flex",
-                    width: "100%",
-                    alignItems: "center",
-                  }}
-                >
-                  <InsertChart sx={{ mr: 1.5, fontSize: 20 }} />
-                  Overview
-                </Link>
-              </MenuItem>
-              <MenuItem onClick={handleClose}>
-                <Link
-                  href="/analytics/menu-performance"
-                  style={{
-                    textDecoration: "none",
-                    color: "inherit",
-                    display: "flex",
-                    width: "100%",
-                    alignItems: "center",
-                  }}
-                >
-                  <MenuBook sx={{ mr: 1.5, fontSize: 20 }} />
-                  Menu Performance
-                </Link>
-              </MenuItem>
-              <MenuItem onClick={handleClose}>
-                <Link
-                  href="/analytics/visitor-insights"
-                  style={{
-                    textDecoration: "none",
-                    color: "inherit",
-                    display: "flex",
-                    width: "100%",
-                    alignItems: "center",
-                  }}
-                >
-                  <AccountCircle sx={{ mr: 1.5, fontSize: 20 }} />
-                  Visitor Insights
-                </Link>
-              </MenuItem>
-              {subscriptionTier !== "basic" && (
-                <MenuItem onClick={handleClose}>
-                  <Link
-                    href="/analytics/sales"
-                    style={{
-                      textDecoration: "none",
-                      color: "inherit",
-                      display: "flex",
-                      width: "100%",
-                      alignItems: "center",
-                    }}
-                  >
-                    <AttachMoney sx={{ mr: 1.5, fontSize: 20 }} />
-                    Sales Reports
-                  </Link>
-                </MenuItem>
-              )}
-            </Menu>
-
-            <Link href="/qrcodes" style={{ textDecoration: "none" }}>
-              <Button
-                sx={{
-                  color: theme.colors.text,
-                  px: { md: 1, lg: 1.5 },
-                  "&:hover": {
-                    backgroundColor: "rgba(0, 0, 0, 0.04)",
-                  },
-                }}
-              >
-                QR Codes
-              </Button>
-            </Link>
-
-            <Link href="/reviews" style={{ textDecoration: "none" }}>
-              <Button
-                sx={{
-                  color: theme.colors.text,
-                  px: { md: 1, lg: 1.5 },
-                  "&:hover": {
-                    backgroundColor: "rgba(0, 0, 0, 0.04)",
-                  },
-                }}
-              >
-                Reviews
-              </Button>
-            </Link>
-
-            {subscriptionTier !== "basic" && (
-              <Link href="/orders" style={{ textDecoration: "none" }}>
-                <Button
-                  sx={{
-                    color: theme.colors.text,
-                    px: { md: 1, lg: 1.5 },
-                    "&:hover": {
-                      backgroundColor: "rgba(0, 0, 0, 0.04)",
-                    },
-                  }}
-                >
-                  Orders
-                </Button>
-              </Link>
-            )}
 
             {/* Notifications icon with badge */}
             <IconButton
               color="inherit"
               onClick={handleNotificationsClick}
-              sx={{ color: theme.colors.text, ml: 1 }}
+              sx={{ color: theme.colors.text }}
             >
               <Badge badgeContent={notificationCount} color="error">
                 <NotificationsOutlined />
@@ -789,19 +574,19 @@ export const RestaurantDashboardHeader: React.FC = () => {
               <MenuItem sx={{ py: 1.5 }}>
                 <Box>
                   <Box sx={{ display: "flex", alignItems: "center", mb: 0.5 }}>
-                    <StarOutline
+                    <Event
                       fontSize="small"
-                      sx={{ color: theme.colors.secondary, mr: 1 }}
+                      sx={{ color: theme.colors.primary, mr: 1 }}
                     />
                     <Typography variant="body2" fontWeight={500}>
-                      New Review
+                      New Event Added
                     </Typography>
                   </Box>
                   <Typography
                     variant="body2"
                     sx={{ color: theme.colors.lightText }}
                   >
-                    Someone left a 5-star review for "Grilled Salmon".
+                    Community Town Hall meeting this Saturday at 10AM.
                   </Typography>
                   <Typography
                     variant="caption"
@@ -811,7 +596,7 @@ export const RestaurantDashboardHeader: React.FC = () => {
                       display: "block",
                     }}
                   >
-                    5 minutes ago
+                    2 hours ago
                   </Typography>
                 </Box>
               </MenuItem>
@@ -819,19 +604,19 @@ export const RestaurantDashboardHeader: React.FC = () => {
               <MenuItem sx={{ py: 1.5 }}>
                 <Box>
                   <Box sx={{ display: "flex", alignItems: "center", mb: 0.5 }}>
-                    <InsertChart
+                    <HealthAndSafety
                       fontSize="small"
-                      sx={{ color: theme.colors.primary, mr: 1 }}
+                      sx={{ color: theme.colors.secondary, mr: 1 }}
                     />
                     <Typography variant="body2" fontWeight={500}>
-                      Menu Performance
+                      Health Services
                     </Typography>
                   </Box>
                   <Typography
                     variant="body2"
                     sx={{ color: theme.colors.lightText }}
                   >
-                    Your "Pasta Carbonara" has seen a 15% increase in views.
+                    COVID-19 vaccination clinic scheduled for next week.
                   </Typography>
                   <Typography
                     variant="caption"
@@ -845,23 +630,23 @@ export const RestaurantDashboardHeader: React.FC = () => {
                   </Typography>
                 </Box>
               </MenuItem>
-
+              
               <MenuItem sx={{ py: 1.5 }}>
                 <Box>
                   <Box sx={{ display: "flex", alignItems: "center", mb: 0.5 }}>
-                    <NewReleases
+                    <Campaign
                       fontSize="small"
-                      sx={{ color: theme.colors.warning, mr: 1 }}
+                      sx={{ color: theme.colors.accent, mr: 1 }}
                     />
                     <Typography variant="body2" fontWeight={500}>
-                      System Update
+                      Community Announcement
                     </Typography>
                   </Box>
                   <Typography
                     variant="body2"
                     sx={{ color: theme.colors.lightText }}
                   >
-                    New video features are available for your account.
+                    Road maintenance scheduled for Oak Street next Monday.
                   </Typography>
                   <Typography
                     variant="caption"
@@ -897,7 +682,7 @@ export const RestaurantDashboardHeader: React.FC = () => {
                     fontSize: 16,
                   }}
                 >
-                  {restaurantName.charAt(0).toUpperCase()}
+                  {userDisplayName.charAt(0).toUpperCase()}
                 </Avatar>
               }
               endIcon={<Box sx={{ fontSize: 10 }}>▼</Box>}
@@ -922,7 +707,13 @@ export const RestaurantDashboardHeader: React.FC = () => {
                   variant="body2"
                   sx={{ fontWeight: 500, lineHeight: 1.2 }}
                 >
-                  Account
+                  {userDisplayName}
+                </Typography>
+                <Typography
+                  variant="caption"
+                  sx={{ color: theme.colors.lightText, lineHeight: 1.2 }}
+                >
+                  Community Member
                 </Typography>
               </Box>
             </Button>
@@ -938,35 +729,14 @@ export const RestaurantDashboardHeader: React.FC = () => {
             >
               <Box sx={{ px: 2, py: 1.5 }}>
                 <Typography variant="subtitle2" fontWeight={600}>
-                  {restaurantName}
+                  {userDisplayName}
                 </Typography>
-                <Box
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 1,
-                    mt: 0.5,
-                  }}
+                <Typography
+                  variant="body2"
+                  sx={{ color: theme.colors.lightText }}
                 >
-                  <Typography
-                    variant="body2"
-                    sx={{ color: theme.colors.lightText }}
-                  >
-                    {subscriptionTier.charAt(0).toUpperCase() +
-                      subscriptionTier.slice(1)}{" "}
-                    Plan
-                  </Typography>
-                  {subscriptionTier !== "premium" && (
-                    <Link href="/upgrade" style={{ textDecoration: "none" }}>
-                      <Typography
-                        variant="caption"
-                        sx={{ color: theme.colors.primary, fontWeight: 500 }}
-                      >
-                        Upgrade
-                      </Typography>
-                    </Link>
-                  )}
-                </Box>
+                  {communityName}
+                </Typography>
               </Box>
               <Divider />
               <MenuItem onClick={handleClose}>
@@ -980,8 +750,8 @@ export const RestaurantDashboardHeader: React.FC = () => {
                     alignItems: "center",
                   }}
                 >
-                  <Restaurant sx={{ mr: 1.5, fontSize: 20 }} />
-                  Restaurant Profile
+                  <AccountCircle sx={{ mr: 1.5, fontSize: 20 }} />
+                  My Profile
                 </Link>
               </MenuItem>
               <MenuItem onClick={handleClose}>
@@ -997,38 +767,6 @@ export const RestaurantDashboardHeader: React.FC = () => {
                 >
                   <Settings sx={{ mr: 1.5, fontSize: 20 }} />
                   Settings
-                </Link>
-              </MenuItem>
-              {subscriptionTier !== "basic" && (
-                <MenuItem onClick={handleClose}>
-                  <Link
-                    href="/team"
-                    style={{
-                      textDecoration: "none",
-                      color: "inherit",
-                      display: "flex",
-                      width: "100%",
-                      alignItems: "center",
-                    }}
-                  >
-                    <SupervisorAccount sx={{ mr: 1.5, fontSize: 20 }} />
-                    Team Management
-                  </Link>
-                </MenuItem>
-              )}
-              <MenuItem onClick={handleClose}>
-                <Link
-                  href="/help"
-                  style={{
-                    textDecoration: "none",
-                    color: "inherit",
-                    display: "flex",
-                    width: "100%",
-                    alignItems: "center",
-                  }}
-                >
-                  <Help sx={{ mr: 1.5, fontSize: 20 }} />
-                  Help & Support
                 </Link>
               </MenuItem>
               <Divider />
@@ -1091,4 +829,4 @@ export const RestaurantDashboardHeader: React.FC = () => {
   );
 };
 
-export default RestaurantDashboardHeader;
+export default MemberDashboardHeader;
