@@ -1,11 +1,11 @@
 import { Box, Typography, keyframes } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import {
-  CleaningServices,
-  Brush,
-  DoneAll,
-  MeetingRoom,
-  Shower,
+  Public,
+  Groups,
+  People,
+  Campaign,
+  HealthAndSafety,
 } from "@mui/icons-material";
 
 const fadeIn = keyframes`
@@ -31,16 +31,30 @@ const rotate = keyframes`
 
 const LogoutLoading = () => {
   const [dots, setDots] = useState(".");
-  const [loadingMessage, setLoadingMessage] = useState("Clearing your session");
+  const [loadingMessage, setLoadingMessage] = useState("Securing your community data");
 
-  // Cleaning-related loading messages
+  // Communicare theme
+  const theme = {
+    colors: {
+      primary: "#3D8BD3",     // Main blue color
+      secondary: "#6E44FF",   // Secondary purple
+      accent: "#00CCFF",      // Bright cyan accent
+      dark: "#1A1F36",        // Dark background
+      light: "#F7F9FC",       // Light background
+      text: "#333333",        // Main text
+      lightText: "#6B7280",   // Secondary text
+      white: "#FFFFFF",       // White
+    },
+  };
+
+  // Community-related loading messages
   const loadingMessages = [
-    "Clearing your session",
-    "Tidying up your data",
-    "Washing away your cookies",
-    "Sweeping up your credentials",
-    "Polishing things off",
-    "Hope you enjoyed your visit!",
+    "Securing your community data",
+    "Saving your preferences",
+    "Finalizing community updates",
+    "Storing your contributions",
+    "Updating community resources",
+    "See you again soon!",
   ];
 
   useEffect(() => {
@@ -65,71 +79,81 @@ const LogoutLoading = () => {
   }, []);
 
   return (
-    <Box sx={styles.container}>
-      <Box sx={styles.contentWrapper}>
+    <Box sx={styles(theme).container}>
+      <Box sx={styles(theme).contentWrapper}>
         {/* Logo */}
-        <Box sx={styles.logoContainer}>
-          <MeetingRoom sx={styles.logoIcon} />
-          <Typography variant="h3" sx={styles.logoText}>
-            <span style={{ color: "#107C10" }}>Good</span>
-            <span style={{ color: "#0078D4" }}>Bye!</span>
+        <Box sx={styles(theme).logoContainer}>
+          <Public sx={styles(theme).logoIcon} />
+          <Typography variant="h3" sx={styles(theme).logoText}>
+            <span style={{ color: theme.colors.primary }}>Communi</span>
+            <span style={{ color: theme.colors.secondary }}>care</span>
           </Typography>
         </Box>
 
-        {/* Cleaning circle with icons */}
-        <Box sx={styles.plateContainer}>
-          <Box sx={styles.plate}>
-            <Box sx={styles.plateInner}>
-              {/* Rotating cleaning icons */}
-              <Box sx={styles.cleaningIconsContainer}>
-                <CleaningServices
-                  sx={{ ...styles.cleaningIcon, animationDelay: "0s" }}
+        {/* Community icon circle with icons */}
+        <Box sx={styles(theme).plateContainer}>
+          <Box sx={styles(theme).plate}>
+            <Box sx={styles(theme).plateInner}>
+              {/* Rotating community-related icons */}
+              <Box sx={styles(theme).cleaningIconsContainer}>
+                <Groups
+                  sx={{ ...styles(theme).cleaningIcon, animationDelay: "0s" }}
                 />
-                <Brush
-                  sx={{ ...styles.cleaningIcon, animationDelay: "0.5s" }}
+                <People
+                  sx={{ ...styles(theme).cleaningIcon, animationDelay: "0.5s" }}
                 />
-                <Shower sx={{ ...styles.cleaningIcon, animationDelay: "1s" }} />
+                <Campaign sx={{ ...styles(theme).cleaningIcon, animationDelay: "1s" }} />
               </Box>
             </Box>
           </Box>
         </Box>
 
-        <Typography variant="h5" sx={styles.loadingText}>
+        <Typography variant="h5" sx={styles(theme).loadingText}>
           {loadingMessage}
           {dots}
         </Typography>
 
-        <Box sx={styles.progressBar}>
-          <Box sx={styles.progressFill}></Box>
+        <Box sx={styles(theme).progressBar}>
+          <Box sx={styles(theme).progressFill}></Box>
         </Box>
 
-        <Typography variant="body2" sx={styles.subText}>
-          Thank you for using CommuniCare
+        <Typography variant="body2" sx={styles(theme).subText}>
+          Thank you for using Communicare.world
         </Typography>
       </Box>
 
-      {/* Decorative elements representing cleaning bubbles */}
-      <Box sx={styles.decorativeBubble1}></Box>
-      <Box sx={styles.decorativeBubble2}></Box>
-      <Box sx={styles.decorativeBubble3}></Box>
-      <Box sx={styles.decorativeBubble4}></Box>
-      <Box sx={styles.decorativeBubble5}></Box>
+      {/* Decorative elements representing community bubbles */}
+      <Box sx={styles(theme).decorativeBubble1}></Box>
+      <Box sx={styles(theme).decorativeBubble2}></Box>
+      <Box sx={styles(theme).decorativeBubble3}></Box>
+      <Box sx={styles(theme).decorativeBubble4}></Box>
+      <Box sx={styles(theme).decorativeBubble5}></Box>
 
       {/* Sparkle effect */}
-      <Box sx={styles.sparkleContainer}>
-        <Box sx={{ ...styles.sparkle, animationDelay: "0.2s" }}></Box>
+      <Box sx={styles(theme).sparkleContainer}>
+        <Box sx={{ ...styles(theme).sparkle, animationDelay: "0.2s" }}></Box>
         <Box
-          sx={{ ...styles.sparkle, animationDelay: "0.8s", left: "60%" }}
+          sx={{ ...styles(theme).sparkle, animationDelay: "0.8s", left: "60%" }}
         ></Box>
         <Box
-          sx={{ ...styles.sparkle, animationDelay: "1.5s", left: "40%" }}
+          sx={{ ...styles(theme).sparkle, animationDelay: "1.5s", left: "40%" }}
         ></Box>
+      </Box>
+
+      {/* Fetch.ai branding */}
+      <Box sx={styles(theme).fetchContainer}>
+        <Typography
+          variant="body2"
+          sx={styles(theme).fetchText}
+        >
+          Powered by Fetch.ai AgentVerse
+        </Typography>
       </Box>
     </Box>
   );
 };
 
-const styles = {
+const styles = (theme) => ({
   container: {
     display: "flex",
     flexDirection: "column",
@@ -137,7 +161,7 @@ const styles = {
     alignItems: "center",
     height: "100vh",
     width: "100vw",
-    background: "linear-gradient(135deg, #f5f9f5 0%, #e0f1f9 100%)",
+    background: "linear-gradient(135deg, #f8f9fa 0%, #E7F2FA 100%)",
     position: "relative",
     overflow: "hidden",
     animation: `${fadeIn} 0.5s ease-in-out`,
@@ -163,7 +187,7 @@ const styles = {
   logoIcon: {
     fontSize: 40,
     marginRight: 1,
-    color: "#107C10",
+    color: theme.colors.primary,
   },
   logoText: {
     fontFamily: '"Segoe UI", sans-serif',
@@ -211,7 +235,7 @@ const styles = {
   cleaningIcon: {
     position: "absolute",
     fontSize: 28,
-    color: "#0078D4",
+    color: theme.colors.primary,
     animation: `${float} 2s infinite ease-in-out`,
     "&:nth-of-type(1)": {
       top: "10%",
@@ -221,21 +245,23 @@ const styles = {
     "&:nth-of-type(2)": {
       bottom: "15%",
       left: "15%",
+      color: theme.colors.secondary,
     },
     "&:nth-of-type(3)": {
       bottom: "15%",
       right: "15%",
+      color: theme.colors.accent,
     },
   },
   loadingText: {
-    color: "#107C10",
+    color: theme.colors.primary,
     marginBottom: "1.5rem",
     fontFamily: "Segoe UI, sans-serif",
     fontWeight: 600,
     textAlign: "center",
   },
   subText: {
-    color: "#0078D4",
+    color: theme.colors.secondary,
     marginTop: "1rem",
     fontFamily: "Segoe UI, sans-serif",
     opacity: 0.9,
@@ -251,7 +277,7 @@ const styles = {
     height: "100%",
     width: "100%",
     backgroundImage:
-      "linear-gradient(90deg, transparent, #107C10, #0078D4, #107C10, transparent)",
+      `linear-gradient(90deg, transparent, ${theme.colors.primary}, ${theme.colors.secondary}, ${theme.colors.primary}, transparent)`,
     backgroundSize: "200% 100%",
     animation: `${shimmer} 2s infinite linear`,
   },
@@ -261,7 +287,7 @@ const styles = {
     height: "50px",
     borderRadius: "50%",
     background:
-      "radial-gradient(circle, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0) 70%)",
+      `radial-gradient(circle, rgba(61, 139, 211, 0.15) 0%, rgba(61, 139, 211, 0) 70%)`,
     top: "20%",
     left: "15%",
     zIndex: 1,
@@ -273,7 +299,7 @@ const styles = {
     height: "30px",
     borderRadius: "50%",
     background:
-      "radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0) 70%)",
+      `radial-gradient(circle, rgba(110, 68, 255, 0.15) 0%, rgba(110, 68, 255, 0) 70%)`,
     top: "30%",
     left: "25%",
     zIndex: 1,
@@ -285,7 +311,7 @@ const styles = {
     height: "40px",
     borderRadius: "50%",
     background:
-      "radial-gradient(circle, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0) 70%)",
+      `radial-gradient(circle, rgba(0, 204, 255, 0.15) 0%, rgba(0, 204, 255, 0) 70%)`,
     top: "25%",
     right: "20%",
     zIndex: 1,
@@ -297,7 +323,7 @@ const styles = {
     height: "25px",
     borderRadius: "50%",
     background:
-      "radial-gradient(circle, rgba(255, 255, 255, 0.75) 0%, rgba(255, 255, 255, 0) 70%)",
+      `radial-gradient(circle, rgba(61, 139, 211, 0.15) 0%, rgba(61, 139, 211, 0) 70%)`,
     bottom: "30%",
     right: "30%",
     zIndex: 1,
@@ -309,7 +335,7 @@ const styles = {
     height: "35px",
     borderRadius: "50%",
     background:
-      "radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0) 70%)",
+      `radial-gradient(circle, rgba(110, 68, 255, 0.15) 0%, rgba(110, 68, 255, 0) 70%)`,
     bottom: "25%",
     left: "30%",
     zIndex: 1,
@@ -334,6 +360,16 @@ const styles = {
     animation: `${float} 2s infinite ease-out`,
     opacity: 0.6,
   },
-};
+  fetchContainer: {
+    position: "absolute",
+    bottom: "20px",
+    right: "20px",
+    zIndex: 10,
+  },
+  fetchText: {
+    color: theme.colors.lightText,
+    fontWeight: 400,
+  },
+});
 
 export default LogoutLoading;

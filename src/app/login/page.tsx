@@ -15,9 +15,8 @@ import {
   Button,
   Link as MuiLink,
   CircularProgress,
-  Divider,
 } from "@mui/material";
-import { MenuBook, Email, Lock, Login as LoginIcon } from "@mui/icons-material";
+import { Public, Email, Lock, Login as LoginIcon } from "@mui/icons-material";
 import Link from "next/link";
 
 const Login: React.FC = () => {
@@ -37,6 +36,20 @@ const Login: React.FC = () => {
     message: "",
     severity: "success" as "success" | "error",
   });
+
+  // Communicare color theme
+  const theme = {
+    colors: {
+      primary: "#3D8BD3",     // Main blue color
+      secondary: "#6E44FF",   // Secondary purple
+      accent: "#00CCFF",      // Bright cyan accent
+      dark: "#1A1F36",        // Dark background
+      light: "#F7F9FC",       // Light background
+      text: "#333333",        // Main text
+      lightText: "#6B7280",   // Secondary text
+      white: "#FFFFFF",       // White
+    },
+  };
 
   useEffect(() => {
     // Add animation effect on mount
@@ -122,32 +135,13 @@ const Login: React.FC = () => {
     }
   };
 
-  const handleMicrosoftLogin = () => {
-    try {
-      // This would call the microsoftLogin method from your auth provider
-      // For now, we'll just show a message
-      setSnackbar({
-        open: true,
-        message: "Microsoft login is not implemented yet",
-        severity: "error",
-      });
-    } catch (error) {
-      console.error("Microsoft login error:", error);
-      setSnackbar({
-        open: true,
-        message: `Error with Microsoft login: ${error.message}`,
-        severity: "error",
-      });
-    }
-  };
-
   return (
     <Box
       sx={{
         display: "flex",
         flexDirection: "column",
         minHeight: "100vh",
-        background: "linear-gradient(135deg, #f8f9fa 0%, #e0f2f1 100%)",
+        background: "linear-gradient(135deg, #f8f9fa 0%, #E7F2FA 100%)",
         position: "relative",
         overflow: "hidden",
       }}
@@ -160,7 +154,7 @@ const Login: React.FC = () => {
           height: "50vw",
           borderRadius: "50%",
           background:
-            "radial-gradient(circle, rgba(16,124,16,0.05) 0%, rgba(0,120,212,0.05) 100%)",
+            "radial-gradient(circle, rgba(61, 139, 211, 0.05) 0%, rgba(110, 68, 255, 0.05) 100%)",
           top: "-25vw",
           right: "-25vw",
           zIndex: 0,
@@ -173,7 +167,7 @@ const Login: React.FC = () => {
           height: "30vw",
           borderRadius: "50%",
           background:
-            "radial-gradient(circle, rgba(16,124,16,0.05) 0%, rgba(0,120,212,0.05) 100%)",
+            "radial-gradient(circle, rgba(61, 139, 211, 0.05) 0%, rgba(110, 68, 255, 0.05) 100%)",
           bottom: "-15vw",
           left: "-15vw",
           zIndex: 0,
@@ -196,43 +190,32 @@ const Login: React.FC = () => {
         }}
       >
         <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-          <MenuBook sx={{ color: "#107C10", fontSize: 32 }} />
+          <Public sx={{ color: theme.colors.primary, fontSize: 32 }} />
           <Typography
             variant="h5"
             sx={{
               fontWeight: 700,
-              background: "linear-gradient(90deg, #107C10, #0078D4)",
+              background: `linear-gradient(90deg, ${theme.colors.primary}, ${theme.colors.secondary})`,
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
               cursor: "pointer",
             }}
             onClick={() => router.push("/")}
           >
-            CommuniCare
+            Communicare.world
           </Typography>
         </Box>
         <Box>
           <Typography
             variant="body2"
             sx={{
-              color: "#555",
+              color: theme.colors.lightText,
               display: "flex",
               alignItems: "center",
               gap: 0.5,
             }}
           >
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 21 21"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <rect x="1" y="1" width="9" height="9" fill="#f25022" />
-              <rect x="1" y="11" width="9" height="9" fill="#00a4ef" />
-              <rect x="11" y="1" width="9" height="9" fill="#7fba00" />
-              <rect x="11" y="11" width="9" height="9" fill="#ffb900" />
-            </svg>
-            Powered by Azure AI
+            Powered by Fetch.ai AgentVerse
           </Typography>
         </Box>
       </Box>
@@ -276,59 +259,18 @@ const Login: React.FC = () => {
               sx={{
                 mb: 1,
                 fontWeight: 700,
-                color: "#107C10",
+                color: theme.colors.primary,
                 textAlign: "center",
               }}
             >
-              Sign In
+              Welcome Back
             </Typography>
             <Typography
               variant="body1"
-              sx={{ mb: 4, color: "text.secondary", textAlign: "center" }}
+              sx={{ mb: 4, color: theme.colors.lightText, textAlign: "center" }}
             >
-              Welcome back to CommuniCare
+              Sign in to your Communicare account
             </Typography>
-
-            <Button
-              fullWidth
-              variant="outlined"
-              startIcon={
-                <svg
-                  width="20"
-                  height="20"
-                  viewBox="0 0 21 21"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <rect x="1" y="1" width="9" height="9" fill="#f25022" />
-                  <rect x="1" y="11" width="9" height="9" fill="#00a4ef" />
-                  <rect x="11" y="1" width="9" height="9" fill="#7fba00" />
-                  <rect x="11" y="11" width="9" height="9" fill="#ffb900" />
-                </svg>
-              }
-              onClick={handleMicrosoftLogin}
-              disabled={loginIsLoading}
-              sx={{
-                py: 1.5,
-                mb: 3,
-                borderColor: "#0078D4",
-                color: "#0078D4",
-                "&:hover": {
-                  borderColor: "#0078D4",
-                  backgroundColor: "rgba(0, 120, 212, 0.1)",
-                },
-              }}
-            >
-              Sign in with Microsoft
-            </Button>
-
-            <Divider sx={{ my: 3 }}>
-              <Typography
-                variant="body2"
-                sx={{ px: 1, color: "text.secondary" }}
-              >
-                OR SIGN IN WITH EMAIL
-              </Typography>
-            </Divider>
 
             <form onSubmit={handleSubmit}>
               <TextField
@@ -346,7 +288,7 @@ const Login: React.FC = () => {
                 InputProps={{
                   startAdornment: (
                     <Email
-                      sx={{ mr: 1, color: "text.secondary" }}
+                      sx={{ mr: 1, color: theme.colors.lightText }}
                       fontSize="small"
                     />
                   ),
@@ -368,7 +310,7 @@ const Login: React.FC = () => {
                 InputProps={{
                   startAdornment: (
                     <Lock
-                      sx={{ mr: 1, color: "text.secondary" }}
+                      sx={{ mr: 1, color: theme.colors.lightText }}
                       fontSize="small"
                     />
                   ),
@@ -379,7 +321,7 @@ const Login: React.FC = () => {
                 <Link href="/forgot-password" passHref>
                   <MuiLink
                     sx={{
-                      color: "#0078D4",
+                      color: theme.colors.secondary,
                       fontWeight: 500,
                       fontSize: "0.875rem",
                     }}
@@ -397,9 +339,9 @@ const Login: React.FC = () => {
                 startIcon={<LoginIcon />}
                 sx={{
                   py: 1.5,
-                  backgroundColor: "#107C10",
+                  backgroundColor: theme.colors.primary,
                   "&:hover": {
-                    backgroundColor: "#0b5e0b",
+                    backgroundColor: "#2e6eb0",
                   },
                 }}
               >
@@ -412,10 +354,10 @@ const Login: React.FC = () => {
             </form>
 
             <Box sx={{ mt: 3, textAlign: "center" }}>
-              <Typography variant="body2" sx={{ color: "text.secondary" }}>
+              <Typography variant="body2" sx={{ color: theme.colors.lightText }}>
                 Don't have an account yet?{" "}
                 <Link href="/register" passHref>
-                  <MuiLink sx={{ color: "#0078D4", fontWeight: 500 }}>
+                  <MuiLink sx={{ color: theme.colors.secondary, fontWeight: 500 }}>
                     Sign up
                   </MuiLink>
                 </Link>
@@ -436,9 +378,8 @@ const Login: React.FC = () => {
           zIndex: 5,
         }}
       >
-        <Typography variant="body2" color="text.secondary">
-          © {new Date().getFullYear()} CommuniCare — Transform your restaurant
-          experience with digital menus
+        <Typography variant="body2" color={theme.colors.lightText}>
+          © {new Date().getFullYear()} Communicare.world — Connect your community with AI
         </Typography>
       </Box>
 
