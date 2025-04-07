@@ -22,14 +22,15 @@ import {
 } from "@mui/material";
 
 import {
-  MenuBook,
-  ReceiptLong,
-  ImageSearch,
-  Fastfood,
-  QuestionAnswer,
+  Public,
+  HealthAndSafety,
+  Campaign,
+  Groups,
+  School,
+  People,
 } from "@mui/icons-material";
 import Link from "next/link";
-import Loading from "@/components/Loading";
+import LoadingScreen from "@/components/LoadingScreen";
 
 // Environment variables
 const ENV = {
@@ -37,31 +38,45 @@ const ENV = {
   NEXT_PUBLIC_HELP_BOT_URL: process.env.NEXT_PUBLIC_HELP_BOT_URL,
 };
 
-const RegisterRestaurant = () => {
+// AgentVerse-inspired color scheme
+const theme = {
+  colors: {
+    primary: "#3D8BD3",     // Main blue color
+    secondary: "#6E44FF",   // Secondary purple
+    accent: "#00CCFF",      // Bright cyan accent
+    dark: "#1A1F36",        // Dark background
+    light: "#F7F9FC",       // Light background
+    text: "#333333",        // Main text
+    lightText: "#6B7280",   // Secondary text
+    white: "#FFFFFF",       // White
+  },
+};
+
+const RegisterCommunity = () => {
   const { register, isLoading, error, registerIsLoading } = useAuth(); // Use auth hook functions
   const router = useRouter();
   const [isPageLoading, setIsPageLoading] = useState(true);
   const [loading, setLoading] = useState(false);
   const [activeStep, setActiveStep] = useState(0);
   const [formData, setFormData] = useState({
-    // Restaurant info
-    restaurantName: "",
-    businessEmail: "",
+    // Community info
+    communityName: "",
+    communityEmail: "",
     phoneNumber: "",
     address: "",
-    // Owner info
-    ownerName: "",
-    ownerEmail: "",
+    // Admin info
+    adminName: "",
+    adminEmail: "",
     password: "",
     confirmPassword: "",
   });
   const [errors, setErrors] = useState({
-    restaurantName: "",
-    businessEmail: "",
+    communityName: "",
+    communityEmail: "",
     phoneNumber: "",
     address: "",
-    ownerName: "",
-    ownerEmail: "",
+    adminName: "",
+    adminEmail: "",
     password: "",
     confirmPassword: "",
   });
@@ -71,7 +86,7 @@ const RegisterRestaurant = () => {
     severity: "success",
   });
 
-  const steps = ["Restaurant Information", "Account Details"];
+  const steps = ["Community Information", "Admin Account Details"];
 
   useEffect(() => {
     // Add animation effect on mount
@@ -107,20 +122,20 @@ const RegisterRestaurant = () => {
     setSnackbar({ ...snackbar, open: false });
   };
 
-  const validateRestaurantInfo = () => {
+  const validateCommunityInfo = () => {
     const newErrors = { ...errors };
     let isValid = true;
 
-    if (!formData.restaurantName.trim()) {
-      newErrors.restaurantName = "Restaurant name is required";
+    if (!formData.communityName.trim()) {
+      newErrors.communityName = "Community name is required";
       isValid = false;
     }
 
-    if (!formData.businessEmail.trim()) {
-      newErrors.businessEmail = "Business email is required";
+    if (!formData.communityEmail.trim()) {
+      newErrors.communityEmail = "Community email is required";
       isValid = false;
-    } else if (!/\S+@\S+\.\S+/.test(formData.businessEmail)) {
-      newErrors.businessEmail = "Please enter a valid email";
+    } else if (!/\S+@\S+\.\S+/.test(formData.communityEmail)) {
+      newErrors.communityEmail = "Please enter a valid email";
       isValid = false;
     }
 
@@ -137,16 +152,16 @@ const RegisterRestaurant = () => {
     const newErrors = { ...errors };
     let isValid = true;
 
-    if (!formData.ownerName.trim()) {
-      newErrors.ownerName = "Name is required";
+    if (!formData.adminName.trim()) {
+      newErrors.adminName = "Name is required";
       isValid = false;
     }
 
-    if (!formData.ownerEmail.trim()) {
-      newErrors.ownerEmail = "Email is required";
+    if (!formData.adminEmail.trim()) {
+      newErrors.adminEmail = "Email is required";
       isValid = false;
-    } else if (!/\S+@\S+\.\S+/.test(formData.ownerEmail)) {
-      newErrors.ownerEmail = "Please enter a valid email";
+    } else if (!/\S+@\S+\.\S+/.test(formData.adminEmail)) {
+      newErrors.adminEmail = "Please enter a valid email";
       isValid = false;
     }
 
@@ -168,7 +183,7 @@ const RegisterRestaurant = () => {
   };
 
   const handleNext = () => {
-    if (activeStep === 0 && validateRestaurantInfo()) {
+    if (activeStep === 0 && validateCommunityInfo()) {
       setActiveStep(1);
     }
   };
@@ -183,20 +198,21 @@ const RegisterRestaurant = () => {
     setLoading(true);
 
     if (!validateAccountDetails()) {
+      setLoading(false);
       return;
     }
 
     try {
       // Create formatted registration data for auth provider
       const registrationData = {
-        displayName: formData.ownerName,
-        givenName: formData.ownerName.split(" ")[0],
-        surname: formData.ownerName.split(" ").slice(1).join(" "),
-        email: formData.ownerEmail,
+        displayName: formData.adminName,
+        givenName: formData.adminName.split(" ")[0],
+        surname: formData.adminName.split(" ").slice(1).join(" "),
+        email: formData.adminEmail,
         password: formData.password,
-        user_type: "owner",
+        user_type: "admin",
         mobile_number: formData.phoneNumber,
-        company_name: formData.restaurantName,
+        company_name: formData.communityName,
         business_address: formData.address,
       };
 
@@ -220,26 +236,6 @@ const RegisterRestaurant = () => {
     }
   };
 
-  const handleMicrosoftLogin = () => {
-    try {
-      // Build the Microsoft login URL
-      const microsoftLoginUrl = `${ENV.NEXT_PUBLIC_API_URL}/auth/microsoft/login`;
-      const params = new URLSearchParams({
-        userType: "owner",
-      }).toString();
-
-      // Redirect to Microsoft login page
-      window.location.href = `${microsoftLoginUrl}?${params}`;
-    } catch (error) {
-      console.error("Microsoft login error:", error);
-      setSnackbar({
-        open: true,
-        message: `Error redirecting to Microsoft login: ${error.message}`,
-        severity: "error",
-      });
-    }
-  };
-
   const handleHome = () => {
     router.replace("/");
   };
@@ -250,32 +246,32 @@ const RegisterRestaurant = () => {
       return (
         <form>
           <Typography variant="h6" sx={{ mb: 2, fontWeight: 600 }}>
-            Tell us about your restaurant
+            Tell us about your community
           </Typography>
 
           <TextField
             fullWidth
-            label="Restaurant Name"
-            name="restaurantName"
-            value={formData.restaurantName}
+            label="Community Name"
+            name="communityName"
+            value={formData.communityName}
             onChange={handleChange}
             margin="normal"
-            error={!!errors.restaurantName}
-            helperText={errors.restaurantName || ""}
+            error={!!errors.communityName}
+            helperText={errors.communityName || ""}
             sx={{ mb: 2 }}
             disabled={isLoading}
           />
 
           <TextField
             fullWidth
-            label="Business Email"
-            name="businessEmail"
+            label="Community Email"
+            name="communityEmail"
             type="email"
-            value={formData.businessEmail}
+            value={formData.communityEmail}
             onChange={handleChange}
             margin="normal"
-            error={!!errors.businessEmail}
-            helperText={errors.businessEmail || ""}
+            error={!!errors.communityEmail}
+            helperText={errors.communityEmail || ""}
             sx={{ mb: 2 }}
             disabled={isLoading}
           />
@@ -295,7 +291,7 @@ const RegisterRestaurant = () => {
 
           <TextField
             fullWidth
-            label="Restaurant Address"
+            label="Community Address"
             name="address"
             value={formData.address}
             onChange={handleChange}
@@ -315,9 +311,9 @@ const RegisterRestaurant = () => {
             sx={{
               py: 1.5,
               px: 4,
-              backgroundColor: "#107C10",
+              backgroundColor: theme.colors.primary,
               "&:hover": {
-                backgroundColor: "#0b5e0b",
+                backgroundColor: "#2e6eb0",
               },
             }}
           >
@@ -329,32 +325,32 @@ const RegisterRestaurant = () => {
       return (
         <form onSubmit={handleSubmit}>
           <Typography variant="h6" sx={{ mb: 2, fontWeight: 600 }}>
-            Create your account
+            Create admin account
           </Typography>
 
           <TextField
             fullWidth
-            label="Owner/Manager Name"
-            name="ownerName"
-            value={formData.ownerName}
+            label="Admin Name"
+            name="adminName"
+            value={formData.adminName}
             onChange={handleChange}
             margin="normal"
-            error={!!errors.ownerName}
-            helperText={errors.ownerName || ""}
+            error={!!errors.adminName}
+            helperText={errors.adminName || ""}
             sx={{ mb: 2 }}
             disabled={isLoading}
           />
 
           <TextField
             fullWidth
-            label="Owner/Manager Email"
-            name="ownerEmail"
+            label="Admin Email"
+            name="adminEmail"
             type="email"
-            value={formData.ownerEmail}
+            value={formData.adminEmail}
             onChange={handleChange}
             margin="normal"
-            error={!!errors.ownerEmail}
-            helperText={errors.ownerEmail || ""}
+            error={!!errors.adminEmail}
+            helperText={errors.adminEmail || ""}
             sx={{ mb: 2 }}
             disabled={isLoading}
           />
@@ -395,8 +391,8 @@ const RegisterRestaurant = () => {
               sx={{
                 py: 1.5,
                 px: 3,
-                borderColor: "#0078D4",
-                color: "#0078D4",
+                borderColor: theme.colors.secondary,
+                color: theme.colors.secondary,
               }}
             >
               Back
@@ -409,16 +405,16 @@ const RegisterRestaurant = () => {
               sx={{
                 py: 1.5,
                 px: 4,
-                backgroundColor: "#107C10",
+                backgroundColor: theme.colors.primary,
                 "&:hover": {
-                  backgroundColor: "#0b5e0b",
+                  backgroundColor: "#2e6eb0",
                 },
               }}
             >
               {isLoading ? (
                 <CircularProgress size={24} color="inherit" />
               ) : (
-                "Register Restaurant"
+                "Register Community"
               )}
             </Button>
           </Box>
@@ -427,7 +423,7 @@ const RegisterRestaurant = () => {
     }
   };
 
-  if (registerIsLoading) return <Loading />;
+  if (registerIsLoading) return <LoadingScreen />;
 
   return (
     <Box
@@ -435,7 +431,7 @@ const RegisterRestaurant = () => {
         display: "flex",
         flexDirection: "column",
         minHeight: "100vh",
-        background: "linear-gradient(135deg, #f8f9fa 0%, #e0f2f1 100%)",
+        background: `linear-gradient(135deg, ${theme.colors.light} 0%, #e0ebf9 100%)`,
         position: "relative",
         overflow: "hidden",
       }}
@@ -447,8 +443,7 @@ const RegisterRestaurant = () => {
           width: "50vw",
           height: "50vw",
           borderRadius: "50%",
-          background:
-            "radial-gradient(circle, rgba(16,124,16,0.05) 0%, rgba(0,120,212,0.05) 100%)",
+          background: `radial-gradient(circle, rgba(61, 139, 211, 0.05) 0%, rgba(110, 68, 255, 0.05) 100%)`,
           top: "-25vw",
           right: "-25vw",
           zIndex: 0,
@@ -460,8 +455,7 @@ const RegisterRestaurant = () => {
           width: "30vw",
           height: "30vw",
           borderRadius: "50%",
-          background:
-            "radial-gradient(circle, rgba(16,124,16,0.05) 0%, rgba(0,120,212,0.05) 100%)",
+          background: `radial-gradient(circle, rgba(61, 139, 211, 0.05) 0%, rgba(110, 68, 255, 0.05) 100%)`,
           bottom: "-15vw",
           left: "-15vw",
           zIndex: 0,
@@ -484,19 +478,19 @@ const RegisterRestaurant = () => {
         }}
       >
         <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-          <MenuBook sx={{ color: "#107C10", fontSize: 32 }} />
+          <Public sx={{ color: theme.colors.primary, fontSize: 32 }} />
           <Typography
             variant="h5"
             sx={{
               fontWeight: 700,
-              background: "linear-gradient(90deg, #107C10, #0078D4)",
+              background: `linear-gradient(90deg, ${theme.colors.primary}, ${theme.colors.secondary})`,
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
               cursor: "pointer",
             }}
             onClick={handleHome}
           >
-            CommuniCare
+            Communicare.world
           </Typography>
         </Box>
         <Box>
@@ -509,18 +503,13 @@ const RegisterRestaurant = () => {
               gap: 0.5,
             }}
           >
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 21 21"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <rect x="1" y="1" width="9" height="9" fill="#f25022" />
-              <rect x="1" y="11" width="9" height="9" fill="#00a4ef" />
-              <rect x="11" y="1" width="9" height="9" fill="#7fba00" />
-              <rect x="11" y="11" width="9" height="9" fill="#ffb900" />
-            </svg>
-            Powered by Azure AI
+            <Box
+              component="img"
+              src="https://img.shields.io/badge/innovationlab-3D8BD3"
+              alt="Innovation Lab"
+              sx={{ height: 16 }}
+            />
+            Powered by Fetch.ai AgentVerse
           </Typography>
         </Box>
       </Box>
@@ -562,55 +551,17 @@ const RegisterRestaurant = () => {
           >
             <Typography
               variant="h4"
-              sx={{ mb: 1, fontWeight: 700, color: "#107C10" }}
+              sx={{ mb: 1, fontWeight: 700, color: theme.colors.primary }}
             >
-              Register Your Restaurant
+              Register Your Community
             </Typography>
             <Typography variant="body1" sx={{ mb: 4, color: "text.secondary" }}>
-              Join CommuniCare to enhance operations with AI-powered receipt
-              processing, menu analysis, and customer assistance
+              Create a Communicare.world community space to enhance connection with AI-powered tools
             </Typography>
 
-            <Button
-              fullWidth
-              variant="outlined"
-              startIcon={
-                <svg
-                  width="20"
-                  height="20"
-                  viewBox="0 0 21 21"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <rect x="1" y="1" width="9" height="9" fill="#f25022" />
-                  <rect x="1" y="11" width="9" height="9" fill="#00a4ef" />
-                  <rect x="11" y="1" width="9" height="9" fill="#7fba00" />
-                  <rect x="11" y="11" width="9" height="9" fill="#ffb900" />
-                </svg>
-              }
-              onClick={handleMicrosoftLogin}
-              disabled={isLoading}
-              sx={{
-                py: 1.5,
-                mb: 3,
-                borderColor: "#0078D4",
-                color: "#0078D4",
-                "&:hover": {
-                  borderColor: "#0078D4",
-                  backgroundColor: "rgba(0, 120, 212, 0.1)",
-                },
-              }}
-            >
-              Register with Microsoft
-            </Button>
-
-            <Divider sx={{ my: 3 }}>
-              <Typography
-                variant="body2"
-                sx={{ px: 1, color: "text.secondary" }}
-              >
-                OR REGISTER MANUALLY
-              </Typography>
-            </Divider>
+            <Typography variant="body1" sx={{ mt: 1, mb: 3, color: "text.secondary", textAlign: "center" }}>
+              Complete the two-step registration process below
+            </Typography>
 
             <Stepper activeStep={activeStep} sx={{ mb: 4 }}>
               {steps.map((label) => (
@@ -627,7 +578,7 @@ const RegisterRestaurant = () => {
               <Typography variant="body2" sx={{ color: "text.secondary" }}>
                 Already have an account?{" "}
                 <Link href="/login" passHref>
-                  <MuiLink sx={{ color: "#0078D4", fontWeight: 500 }}>
+                  <MuiLink sx={{ color: theme.colors.secondary, fontWeight: 500 }}>
                     Sign in
                   </MuiLink>
                 </Link>
@@ -637,10 +588,10 @@ const RegisterRestaurant = () => {
                 variant="body2"
                 sx={{ mt: 1, color: "text.secondary" }}
               >
-                Are you a diner?{" "}
-                <Link href="/register/diner" passHref>
-                  <MuiLink sx={{ color: "#0078D4", fontWeight: 500 }}>
-                    Register as a diner
+                Want to join an existing community?{" "}
+                <Link href="/register/member" passHref>
+                  <MuiLink sx={{ color: theme.colors.secondary, fontWeight: 500 }}>
+                    Register as a member
                   </MuiLink>
                 </Link>
               </Typography>
@@ -667,74 +618,68 @@ const RegisterRestaurant = () => {
             >
               <Typography
                 variant="h5"
-                sx={{ mb: 3, fontWeight: 700, color: "#0078D4" }}
+                sx={{ mb: 3, fontWeight: 700, color: theme.colors.secondary }}
               >
                 Our AI-Powered Solutions
               </Typography>
 
               <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
                 <Box sx={{ display: "flex", alignItems: "flex-start", gap: 2 }}>
-                  <ReceiptLong sx={{ color: "#107C10", mt: 0.5 }} />
+                  <Campaign sx={{ color: theme.colors.primary, mt: 0.5 }} />
                   <Box>
                     <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>
-                      Intelligent Receipt & Invoice Processing
+                      Community Coordination
                     </Typography>
                     <Typography
                       variant="body2"
                       sx={{ color: "text.secondary" }}
                     >
-                      Automatically scan and process incoming invoices and
-                      receipts to streamline receiving and accounting.
+                      Streamline community announcements, events, and meetings with AI-powered organization tools.
                     </Typography>
                   </Box>
                 </Box>
 
                 <Box sx={{ display: "flex", alignItems: "flex-start", gap: 2 }}>
-                  <ImageSearch sx={{ color: "#107C10", mt: 0.5 }} />
+                  <HealthAndSafety sx={{ color: theme.colors.primary, mt: 0.5 }} />
                   <Box>
                     <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>
-                      Menu Image Analysis
+                      Health & Wellness Monitoring
                     </Typography>
                     <Typography
                       variant="body2"
                       sx={{ color: "text.secondary" }}
                     >
-                      AI-powered visual menu interpretation helps customers
-                      understand dishes better with detailed ingredient
-                      analysis.
+                      Support community health with monitoring tools, medical resources, and emergency assistance.
                     </Typography>
                   </Box>
                 </Box>
 
                 <Box sx={{ display: "flex", alignItems: "flex-start", gap: 2 }}>
-                  <Fastfood sx={{ color: "#107C10", mt: 0.5 }} />
+                  <School sx={{ color: theme.colors.primary, mt: 0.5 }} />
                   <Box>
                     <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>
-                      Informed Food Choice Assistant
+                      Education Support Services
                     </Typography>
                     <Typography
                       variant="body2"
                       sx={{ color: "text.secondary" }}
                     >
-                      Help customers make dietary-appropriate choices with
-                      nutritional insights and allergen information.
+                      Provide tutoring assistance and educational resources for all community members.
                     </Typography>
                   </Box>
                 </Box>
 
                 <Box sx={{ display: "flex", alignItems: "flex-start", gap: 2 }}>
-                  <QuestionAnswer sx={{ color: "#107C10", mt: 0.5 }} />
+                  <People sx={{ color: theme.colors.primary, mt: 0.5 }} />
                   <Box>
                     <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>
-                      Interactive Q&A Bot
+                      Community Connection
                     </Typography>
                     <Typography
                       variant="body2"
                       sx={{ color: "text.secondary" }}
                     >
-                      Comprehensive AI assistant that answers any customer
-                      questions about menu items, ingredients, or preparation
-                      methods.
+                      Foster stronger relationships with tools to connect residents, service providers, and community leaders.
                     </Typography>
                   </Box>
                 </Box>
@@ -746,16 +691,16 @@ const RegisterRestaurant = () => {
               sx={{
                 p: 4,
                 borderRadius: 3,
-                backgroundColor: "rgba(16, 124, 16, 0.05)",
+                backgroundColor: `rgba(61, 139, 211, 0.05)`,
                 backdropFilter: "blur(10px)",
-                border: "1px solid rgba(16, 124, 16, 0.1)",
+                border: `1px solid rgba(61, 139, 211, 0.1)`,
               }}
             >
               <Typography
                 variant="h5"
-                sx={{ mb: 3, fontWeight: 700, color: "#107C10" }}
+                sx={{ mb: 3, fontWeight: 700, color: theme.colors.primary }}
               >
-                How CommuniCare Works
+                How Communicare.world Works
               </Typography>
 
               <Box sx={{ display: "flex", flexDirection: "column", gap: 2.5 }}>
@@ -765,7 +710,7 @@ const RegisterRestaurant = () => {
                       width: 30,
                       height: 30,
                       borderRadius: "50%",
-                      bgcolor: "#107C10",
+                      bgcolor: theme.colors.primary,
                       color: "white",
                       display: "flex",
                       alignItems: "center",
@@ -777,8 +722,7 @@ const RegisterRestaurant = () => {
                     1
                   </Box>
                   <Typography variant="body1">
-                    <strong>Upload your receipts and invoices</strong> to
-                    automate processing and inventory management
+                    <strong>Register your community</strong> and set up your profile with essential information
                   </Typography>
                 </Box>
 
@@ -788,7 +732,7 @@ const RegisterRestaurant = () => {
                       width: 30,
                       height: 30,
                       borderRadius: "50%",
-                      bgcolor: "#107C10",
+                      bgcolor: theme.colors.primary,
                       color: "white",
                       display: "flex",
                       alignItems: "center",
@@ -800,8 +744,7 @@ const RegisterRestaurant = () => {
                     2
                   </Box>
                   <Typography variant="body1">
-                    <strong>Create an AI-enhanced digital menu</strong> with
-                    detailed dish information and visual analysis
+                    <strong>Select AI agents</strong> that match your community's specific needs from our library of 30+ specialized agents
                   </Typography>
                 </Box>
 
@@ -811,7 +754,7 @@ const RegisterRestaurant = () => {
                       width: 30,
                       height: 30,
                       borderRadius: "50%",
-                      bgcolor: "#107C10",
+                      bgcolor: theme.colors.primary,
                       color: "white",
                       display: "flex",
                       alignItems: "center",
@@ -823,8 +766,7 @@ const RegisterRestaurant = () => {
                     3
                   </Box>
                   <Typography variant="body1">
-                    <strong>Enable the interactive Q&A assistant</strong> for
-                    personalized customer support and food recommendations
+                    <strong>Invite community members</strong> to join your Communicare.world platform
                   </Typography>
                 </Box>
 
@@ -834,7 +776,7 @@ const RegisterRestaurant = () => {
                       width: 30,
                       height: 30,
                       borderRadius: "50%",
-                      bgcolor: "#107C10",
+                      bgcolor: theme.colors.primary,
                       color: "white",
                       display: "flex",
                       alignItems: "center",
@@ -846,8 +788,7 @@ const RegisterRestaurant = () => {
                     4
                   </Box>
                   <Typography variant="body1">
-                    <strong>Track customer engagement</strong> with detailed
-                    analytics on how users interact with your menu
+                    <strong>Monitor community engagement</strong> with analytics and insights on your community's health and activities
                   </Typography>
                 </Box>
               </Box>
@@ -860,8 +801,7 @@ const RegisterRestaurant = () => {
                     fontWeight: 500,
                   }}
                 >
-                  Join today and transform your restaurant operations with our
-                  intelligent AI solutions!
+                  Create your community today and enhance quality of life with our AI-powered platform!
                 </Typography>
               </Box>
             </Paper>
@@ -881,8 +821,7 @@ const RegisterRestaurant = () => {
         }}
       >
         <Typography variant="body2" color="text.secondary">
-          © {new Date().getFullYear()} CommuniCare — AI-powered solutions for
-          modern restaurant management
+          © {new Date().getFullYear()} Communicare.world — AI-powered solutions for stronger communities
         </Typography>
       </Box>
 
@@ -906,4 +845,4 @@ const RegisterRestaurant = () => {
   );
 };
 
-export default RegisterRestaurant;
+export default RegisterCommunity;

@@ -4,17 +4,17 @@ import React, { useEffect, useState } from "react";
 import { Box, Fade, Typography } from "@mui/material";
 import { motion } from "framer-motion";
 
-// Microsoft-inspired color scheme
+// AgentVerse-inspired color scheme
 const theme = {
   colors: {
-    primary: "#107C10", // Microsoft green
-    secondary: "#0078D4", // Microsoft blue
-    accent: "#50E6FF", // Azure blue
-    lightGreen: "#84c680",
-    background: "#f5f5f5",
-    text: "#323130",
-    lightText: "#605E5C",
-    white: "#FFFFFF",
+    primary: "#3D8BD3",     // Main blue color
+    secondary: "#6E44FF",   // Secondary purple
+    accent: "#00CCFF",      // Bright cyan accent
+    dark: "#1A1F36",        // Dark background
+    light: "#F7F9FC",       // Light background
+    text: "#333333",        // Main text
+    lightText: "#6B7280",   // Secondary text
+    white: "#FFFFFF",       // White
   },
 };
 
@@ -53,7 +53,7 @@ const LoadingScreen = () => {
           height: "300px",
         }}
       >
-        {/* Cooking Pot */}
+        {/* Community Globe */}
         <Box
           component={motion.div}
           initial={{ y: 50, opacity: 0 }}
@@ -64,29 +64,31 @@ const LoadingScreen = () => {
           }}
           sx={{
             width: "120px",
-            height: "80px",
-            borderRadius: "0 0 60px 60px",
-            backgroundColor: "#444",
+            height: "120px",
+            borderRadius: "50%",
+            backgroundColor: theme.colors.light,
+            border: `2px solid ${theme.colors.primary}30`,
             position: "relative",
             mb: 1,
             overflow: "visible",
+            boxShadow: `0 0 30px ${theme.colors.primary}20`,
           }}
         >
-          {/* Pot Handles */}
+          {/* Globe Equator */}
           <Box
             component={motion.div}
             sx={{
               position: "absolute",
-              width: "140px",
-              height: "20px",
-              top: "10px",
-              left: "-10px",
+              width: "120px",
+              height: "10px",
+              top: "55px",
+              left: "0px",
               borderRadius: "20px",
-              backgroundColor: "#333",
+              backgroundColor: `${theme.colors.primary}20`,
             }}
           />
 
-          {/* Steam 1 */}
+          {/* Connection Line 1 */}
           <Box
             component={motion.div}
             animate={{
@@ -102,14 +104,14 @@ const LoadingScreen = () => {
               width: "15px",
               height: "15px",
               borderRadius: "50%",
-              backgroundColor: "rgba(255, 255, 255, 0.8)",
+              background: `radial-gradient(circle, ${theme.colors.accent} 0%, transparent 70%)`,
               position: "absolute",
               top: "-25px",
               left: "30px",
             }}
           />
 
-          {/* Steam 2 */}
+          {/* Connection Line 2 */}
           <Box
             component={motion.div}
             animate={{
@@ -126,14 +128,14 @@ const LoadingScreen = () => {
               width: "18px",
               height: "18px",
               borderRadius: "50%",
-              backgroundColor: "rgba(255, 255, 255, 0.8)",
+              background: `radial-gradient(circle, ${theme.colors.secondary} 0%, transparent 70%)`,
               position: "absolute",
               top: "-20px",
               left: "60px",
             }}
           />
 
-          {/* Steam 3 */}
+          {/* Connection Line 3 */}
           <Box
             component={motion.div}
             animate={{
@@ -150,7 +152,7 @@ const LoadingScreen = () => {
               width: "12px",
               height: "12px",
               borderRadius: "50%",
-              backgroundColor: "rgba(255, 255, 255, 0.8)",
+              background: `radial-gradient(circle, ${theme.colors.primary} 0%, transparent 70%)`,
               position: "absolute",
               top: "-15px",
               left: "85px",
@@ -158,7 +160,7 @@ const LoadingScreen = () => {
           />
         </Box>
 
-        {/* Stirring Spoon */}
+        {/* Community Connection */}
         <Box
           component={motion.div}
           initial={{ rotate: -30, x: -50, opacity: 0 }}
@@ -172,25 +174,27 @@ const LoadingScreen = () => {
           }}
           sx={{
             width: "120px",
-            height: "20px",
-            backgroundColor: "#C19A6B",
+            height: "3px",
+            background: `linear-gradient(90deg, ${theme.colors.primary}, ${theme.colors.secondary})`,
             borderRadius: "10px",
             position: "absolute",
             top: "80px",
             transformOrigin: "right center",
             zIndex: 1,
+            boxShadow: `0 0 10px ${theme.colors.primary}60`,
           }}
         >
-          {/* Spoon Head */}
+          {/* Connection Node */}
           <Box
             sx={{
-              width: "35px",
-              height: "35px",
-              backgroundColor: "#C19A6B",
+              width: "15px",
+              height: "15px",
+              background: `radial-gradient(circle, ${theme.colors.secondary}, ${theme.colors.primary})`,
               borderRadius: "50%",
               position: "absolute",
-              top: "-8px",
+              top: "-6px",
               left: "-5px",
+              boxShadow: `0 0 10px ${theme.colors.secondary}80`,
             }}
           />
         </Box>
@@ -217,7 +221,7 @@ const LoadingScreen = () => {
           >
             <path
               fill={theme.colors.primary}
-              d="M8.1,13.34L3.91,9.16C2.35,7.59 2.35,5.06 3.91,3.5L10.93,10.5L8.1,13.34M14.88,11.53L13.41,13L20.29,19.88L18.88,21.29L12,14.41L5.12,21.29L3.71,19.88L13.47,10.12C12.76,8.59 13.26,6.44 14.85,4.85C16.76,2.93 19.5,2.57 20.96,4.03C22.43,5.5 22.07,8.24 20.15,10.15C18.56,11.74 16.41,12.24 14.88,11.53Z"
+              d="M12,2C6.47,2 2,6.47 2,12C2,17.53 6.47,22 12,22A10,10 0 0,0 22,12C22,6.47 17.5,2 12,2M12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20M13,9.94L14.06,11L15.12,9.94L16.18,11L17.24,9.94L15.12,7.82L13,9.94M8.88,9.94L9.94,11L11,9.94L8.88,7.82L6.76,9.94L7.82,11L8.88,9.94M12,17.5C14.33,17.5 16.31,16.04 17.11,14H6.89C7.69,16.04 9.67,17.5 12,17.5Z"
             />
           </Box>
           <Typography
@@ -227,7 +231,7 @@ const LoadingScreen = () => {
               fontSize: "1.25rem",
             }}
           >
-            CommuniCare
+            Communicare.world
           </Typography>
         </Box>
 
@@ -246,7 +250,7 @@ const LoadingScreen = () => {
               fontWeight: 500,
             }}
           >
-            Preparing your digital menu experience...
+            Connecting your community...
           </Typography>
         </Box>
 

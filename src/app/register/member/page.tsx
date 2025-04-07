@@ -18,16 +18,30 @@ import {
   CircularProgress,
 } from "@mui/material";
 import {
-  MenuBook,
-  RestaurantMenu,
-  VerifiedUser,
-  Translate,
-  Fastfood,
+  Public,
+  Groups,
+  HealthAndSafety,
+  Campaign,
+  People,
 } from "@mui/icons-material";
 import Link from "next/link";
-import Loading from "@/components/Loading";
+import LoadingScreen from "@/components/LoadingScreen";
 
-const RegisterDiner: React.FC = () => {
+// AgentVerse-inspired color scheme
+const theme = {
+  colors: {
+    primary: "#3D8BD3",     // Main blue color
+    secondary: "#6E44FF",   // Secondary purple
+    accent: "#00CCFF",      // Bright cyan accent
+    dark: "#1A1F36",        // Dark background
+    light: "#F7F9FC",       // Light background
+    text: "#333333",        // Main text
+    lightText: "#6B7280",   // Secondary text
+    white: "#FFFFFF",       // White
+  },
+};
+
+const RegisterMember: React.FC = () => {
   const { register, isLoading, error, registerIsLoading } = useAuth();
   const router = useRouter();
   const [isPageLoading, setIsPageLoading] = useState(true);
@@ -132,7 +146,7 @@ const RegisterDiner: React.FC = () => {
           surname: formData.name.split(" ").slice(1).join(" ") || "",
           email: formData.email,
           password: formData.password,
-          user_type: "customer", // Use customer as user_type for diners
+          user_type: "member", // Community member
         };
 
         // Call register from auth provider
@@ -147,27 +161,9 @@ const RegisterDiner: React.FC = () => {
     }
   };
 
-  const handleMicrosoftLogin = () => {
-    try {
-      // Build the Microsoft login URL
-      const microsoftLoginUrl = `${process.env.NEXT_PUBLIC_API_URL}/auth/microsoft/login`;
-      const params = new URLSearchParams({
-        userType: "customer",
-      }).toString();
+  // Removed Microsoft login method
 
-      // Redirect to Microsoft login page
-      window.location.href = `${microsoftLoginUrl}?${params}`;
-    } catch (error) {
-      console.error("Microsoft login error:", error);
-      setSnackbar({
-        open: true,
-        message: `Error redirecting to Microsoft login: ${error.message}`,
-        severity: "error",
-      });
-    }
-  };
-
-  if (registerIsLoading) return <Loading />;
+  if (registerIsLoading) return <LoadingScreen />;
 
   return (
     <Box
@@ -175,7 +171,7 @@ const RegisterDiner: React.FC = () => {
         display: "flex",
         flexDirection: "column",
         minHeight: "100vh",
-        background: "linear-gradient(135deg, #f8f9fa 0%, #e0f2f1 100%)",
+        background: `linear-gradient(135deg, ${theme.colors.light} 0%, #e0ebf9 100%)`,
         position: "relative",
         overflow: "hidden",
       }}
@@ -187,8 +183,7 @@ const RegisterDiner: React.FC = () => {
           width: "50vw",
           height: "50vw",
           borderRadius: "50%",
-          background:
-            "radial-gradient(circle, rgba(16,124,16,0.05) 0%, rgba(0,120,212,0.05) 100%)",
+          background: `radial-gradient(circle, rgba(61, 139, 211, 0.05) 0%, rgba(110, 68, 255, 0.05) 100%)`,
           top: "-25vw",
           right: "-25vw",
           zIndex: 0,
@@ -200,8 +195,7 @@ const RegisterDiner: React.FC = () => {
           width: "30vw",
           height: "30vw",
           borderRadius: "50%",
-          background:
-            "radial-gradient(circle, rgba(16,124,16,0.05) 0%, rgba(0,120,212,0.05) 100%)",
+          background: `radial-gradient(circle, rgba(61, 139, 211, 0.05) 0%, rgba(110, 68, 255, 0.05) 100%)`,
           bottom: "-15vw",
           left: "-15vw",
           zIndex: 0,
@@ -224,19 +218,19 @@ const RegisterDiner: React.FC = () => {
         }}
       >
         <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-          <MenuBook sx={{ color: "#107C10", fontSize: 32 }} />
+          <Public sx={{ color: theme.colors.primary, fontSize: 32 }} />
           <Typography
             variant="h5"
             sx={{
               fontWeight: 700,
-              background: "linear-gradient(90deg, #107C10, #0078D4)",
+              background: `linear-gradient(90deg, ${theme.colors.primary}, ${theme.colors.secondary})`,
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
               cursor: "pointer",
             }}
             onClick={() => router.push("/")}
           >
-            CommuniCare
+            Communicare.world
           </Typography>
         </Box>
         <Box>
@@ -249,18 +243,13 @@ const RegisterDiner: React.FC = () => {
               gap: 0.5,
             }}
           >
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 21 21"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <rect x="1" y="1" width="9" height="9" fill="#f25022" />
-              <rect x="1" y="11" width="9" height="9" fill="#00a4ef" />
-              <rect x="11" y="1" width="9" height="9" fill="#7fba00" />
-              <rect x="11" y="11" width="9" height="9" fill="#ffb900" />
-            </svg>
-            Powered by Azure AI
+            <Box
+              component="img"
+              src="https://img.shields.io/badge/innovationlab-3D8BD3"
+              alt="Innovation Lab"
+              sx={{ height: 16 }}
+            />
+            Powered by Fetch.ai AgentVerse
           </Typography>
         </Box>
       </Box>
@@ -302,54 +291,17 @@ const RegisterDiner: React.FC = () => {
           >
             <Typography
               variant="h4"
-              sx={{ mb: 1, fontWeight: 700, color: "#107C10" }}
+              sx={{ mb: 1, fontWeight: 700, color: theme.colors.primary }}
             >
-              Register as a Diner
+              Join Your Community
             </Typography>
             <Typography variant="body1" sx={{ mb: 4, color: "text.secondary" }}>
-              Create your diner account to access restaurant digital menus
+              Create your account to connect with your community and access AI-powered services
             </Typography>
 
-            <Button
-              fullWidth
-              variant="outlined"
-              startIcon={
-                <svg
-                  width="20"
-                  height="20"
-                  viewBox="0 0 21 21"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <rect x="1" y="1" width="9" height="9" fill="#f25022" />
-                  <rect x="1" y="11" width="9" height="9" fill="#00a4ef" />
-                  <rect x="11" y="1" width="9" height="9" fill="#7fba00" />
-                  <rect x="11" y="11" width="9" height="9" fill="#ffb900" />
-                </svg>
-              }
-              onClick={handleMicrosoftLogin}
-              disabled={isLoading}
-              sx={{
-                py: 1.5,
-                mb: 3,
-                borderColor: "#0078D4",
-                color: "#0078D4",
-                "&:hover": {
-                  borderColor: "#0078D4",
-                  backgroundColor: "rgba(0, 120, 212, 0.1)",
-                },
-              }}
-            >
-              Sign up with Microsoft
-            </Button>
-
-            <Divider sx={{ my: 3 }}>
-              <Typography
-                variant="body2"
-                sx={{ px: 1, color: "text.secondary" }}
-              >
-                OR REGISTER WITH EMAIL
-              </Typography>
-            </Divider>
+            <Typography variant="body1" sx={{ mt: 1, mb: 3, color: "text.secondary", textAlign: "center" }}>
+              Fill out the form below to join your community platform
+            </Typography>
 
             <form onSubmit={handleSubmit}>
               <TextField
@@ -414,9 +366,9 @@ const RegisterDiner: React.FC = () => {
                 disabled={isLoading}
                 sx={{
                   py: 1.5,
-                  backgroundColor: "#107C10",
+                  backgroundColor: theme.colors.primary,
                   "&:hover": {
-                    backgroundColor: "#0b5e0b",
+                    backgroundColor: "#2e6eb0",
                   },
                 }}
               >
@@ -432,7 +384,7 @@ const RegisterDiner: React.FC = () => {
               <Typography variant="body2" sx={{ color: "text.secondary" }}>
                 Already have an account?{" "}
                 <Link href="/login" passHref>
-                  <MuiLink sx={{ color: "#0078D4", fontWeight: 500 }}>
+                  <MuiLink sx={{ color: theme.colors.secondary, fontWeight: 500 }}>
                     Sign in
                   </MuiLink>
                 </Link>
@@ -442,10 +394,10 @@ const RegisterDiner: React.FC = () => {
                 variant="body2"
                 sx={{ mt: 1, color: "text.secondary" }}
               >
-                Are you a restaurant owner?{" "}
-                <Link href="/register/restaurant" passHref>
-                  <MuiLink sx={{ color: "#0078D4", fontWeight: 500 }}>
-                    Register your restaurant
+                Want to create a community?{" "}
+                <Link href="/register/community" passHref>
+                  <MuiLink sx={{ color: theme.colors.secondary, fontWeight: 500 }}>
+                    Register a community
                   </MuiLink>
                 </Link>
               </Typography>
@@ -466,7 +418,7 @@ const RegisterDiner: React.FC = () => {
               sx={{
                 mb: 4,
                 fontWeight: 700,
-                color: "#0078D4",
+                color: theme.colors.secondary,
                 textAlign: { xs: "center", md: "left" },
               }}
             >
@@ -490,21 +442,20 @@ const RegisterDiner: React.FC = () => {
               >
                 <Box
                   sx={{
-                    bgcolor: "rgba(16, 124, 16, 0.1)",
+                    bgcolor: `${theme.colors.primary}15`,
                     p: 1.5,
                     borderRadius: 2,
-                    color: "#107C10",
+                    color: theme.colors.primary,
                   }}
                 >
-                  <Fastfood />
+                  <Groups />
                 </Box>
                 <Box>
                   <Typography variant="h6" sx={{ fontWeight: 600, mb: 1 }}>
-                    Explore Rich Menu Content
+                    Connect With Your Community
                   </Typography>
                   <Typography variant="body2" sx={{ color: "text.secondary" }}>
-                    Experience menus with videos, images, and detailed
-                    information about each dish.
+                    Stay informed about community events, announcements, and initiatives through a unified platform.
                   </Typography>
                 </Box>
               </Paper>
@@ -525,21 +476,20 @@ const RegisterDiner: React.FC = () => {
               >
                 <Box
                   sx={{
-                    bgcolor: "rgba(0, 120, 212, 0.1)",
+                    bgcolor: `${theme.colors.secondary}15`,
                     p: 1.5,
                     borderRadius: 2,
-                    color: "#0078D4",
+                    color: theme.colors.secondary,
                   }}
                 >
-                  <Translate />
+                  <HealthAndSafety />
                 </Box>
                 <Box>
                   <Typography variant="h6" sx={{ fontWeight: 600, mb: 1 }}>
-                    Multilingual Support
+                    Health & Wellness Support
                   </Typography>
                   <Typography variant="body2" sx={{ color: "text.secondary" }}>
-                    View menus in your preferred language with our AI-powered
-                    translation.
+                    Access personalized health monitoring, medical resources, and wellness programs through our AI-powered platform.
                   </Typography>
                 </Box>
               </Paper>
@@ -560,21 +510,20 @@ const RegisterDiner: React.FC = () => {
               >
                 <Box
                   sx={{
-                    bgcolor: "rgba(80, 230, 255, 0.1)",
+                    bgcolor: `${theme.colors.accent}15`,
                     p: 1.5,
                     borderRadius: 2,
-                    color: "#0078D4",
+                    color: theme.colors.accent,
                   }}
                 >
-                  <VerifiedUser />
+                  <Campaign />
                 </Box>
                 <Box>
                   <Typography variant="h6" sx={{ fontWeight: 600, mb: 1 }}>
-                    Secure Microsoft Authentication
+                    AI-Powered Assistance
                   </Typography>
                   <Typography variant="body2" sx={{ color: "text.secondary" }}>
-                    Sign in quickly and securely with your Microsoft account for
-                    a seamless experience.
+                    Benefit from 30+ specialized AI agents designed to enhance community living, education, safety, and more.
                   </Typography>
                 </Box>
               </Paper>
@@ -588,8 +537,7 @@ const RegisterDiner: React.FC = () => {
                   textAlign: "center",
                 }}
               >
-                Join CommuniCare today and <strong>TIP</strong> your dining
-                experience to the next level!
+                Join Communicare.world today and experience a stronger, more connected community!
               </Typography>
             </Box>
           </Box>
@@ -608,8 +556,7 @@ const RegisterDiner: React.FC = () => {
         }}
       >
         <Typography variant="body2" color="text.secondary">
-          © {new Date().getFullYear()} CommuniCare — Transform your restaurant
-          experience with digital menus
+          © {new Date().getFullYear()} Communicare.world — Transforming communities with AI-powered connectivity
         </Typography>
       </Box>
 
@@ -633,4 +580,4 @@ const RegisterDiner: React.FC = () => {
   );
 };
 
-export default RegisterDiner;
+export default RegisterMember;
